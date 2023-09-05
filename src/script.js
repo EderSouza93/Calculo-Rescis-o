@@ -13,6 +13,7 @@ const iptuPaymentInput = document.getElementById("iptu-payment");
 const spuBillValueInput = document.getElementById("spu-bill-value");
 const spuPaymentInput = document.getElementById("spu-payment");
 const differenceDays = document.getElementById("difference-days");
+const results = document.getElementById("result-water");
 
 const currentYear = new Date().getFullYear();
 const currentTime = new Date(`January 01 ${currentYear}`);
@@ -21,6 +22,7 @@ const differenceBetweenDays = () => {
   //manipulando os inputs
   const contractEndDate = contractEndDateInput.value;
   const waterReadingDate = waterReadingDateInput.value;
+  const waterBillValue = waterBillValueInput.value;
 
   //convertendo as datas para objetos
   const data1 = new Date(contractEndDate);
@@ -28,7 +30,11 @@ const differenceBetweenDays = () => {
 
   const diffTime = Math.abs(data2 - data1);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
-  console.log(diffDays);
+
+  const valueWater = (waterBillValue / 30) * diffDays;
+  console.log(valueWater);
+  results.textContent = `O valor é ${valueWater}`;
+  console.log(currentTime);
 };
 
 differenceDays.addEventListener("click", differenceBetweenDays);
