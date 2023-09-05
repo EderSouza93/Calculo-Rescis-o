@@ -23,17 +23,34 @@
           <div class="card-header">Valor a ser ressarcido ou devido</div>
           <div class="card-body" style="min-height: 3rem;" id="result-water"></div>
         </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular diferença</button>
+        </div>
       </div>
       <div class="col-md-4" id="energy">
         <h3>Fatura de Energia</h3>
         <input class="form-control" type="number" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
         <label for="form-control">Data da ultima leitura</label>
         <input class="form-control" type="date" id="energy-reading-date">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+          <div class="card-header">Valor a ser ressarcido ou devido</div>
+          <div class="card-body" style="min-height: 3rem;" id="result-energy"></div>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular diferença</button>
+        </div>
       </div>
       <div class="col-md-4" id="condominium">
         <h3>Condomínio</h3>
         <input class="form-control" type="number" placeholder="Valor do ultimo boleto de condomínio" id="condominium-bill-value">
         <input class="form-control" type="number" placeholder="Quanto foi pago" id="condominium-payment">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+          <div class="card-header">Valor a ser ressarcido ou devido</div>
+          <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular diferença</button>
+        </div>
       </div>
       <div class="col-md-4" id="iptu">
         <h3>IPTU</h3>
@@ -45,9 +62,7 @@
         <input class="form-control" type="number" placeholder="Valor da ultima parcela do SPU" id="spu-bill-value">
         <input class="form-control" type="number" placeholder="Quanto foi pago" id="spu-payment">
       </div>
-      <div class="col-md-4">
-        <button type="button" class="btn btn-outline-primary" id="difference-days">Calcular diferença</button>
-      </div>
+      
     </div>
 
 
