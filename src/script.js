@@ -39,6 +39,8 @@ const differenceBetweenDaysWater = () => {
 
   if (data2 > data1) {
     resultWater.textContent = "Data de leitura inválida";
+  } else if(data2 < data1 && diffDays > 60) {
+    resultEnergy.textContent = "Data de medição muito antiga";
   } else resultWater.textContent = `Valor de água a ser pago é ${valueWater}`;
 };
 
