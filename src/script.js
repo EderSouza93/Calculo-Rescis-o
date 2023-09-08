@@ -14,6 +14,7 @@ const condominiumBillValueInput = document.getElementById(
   "condominium-bill-value"
 );
 const condominiumPaymentInput = document.getElementById("condominium-payment");
+const calculateCondominiumBtn = document.getElementById("difference-days-condominuim");
 const iptuBillValueInput = document.getElementById("iptu-bill-value");
 const iptuPaymentInput = document.getElementById("iptu-payment");
 const spuBillValueInput = document.getElementById("spu-bill-value");
@@ -61,7 +62,7 @@ const differenceBetweenDaysEnergy = () => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
 
   const valueEnergy = (energyBillValue / 30) * diffDays;
-
+  // Definindo um validador para cada data de vencimento específico 
   if (data2 > data1) {
     resultEnergy.textContent = "Data de leitura inválida";
   } else if (data2 < data1 && diffDays > 60) {
@@ -74,4 +75,32 @@ const differenceBetweenDaysEnergy = () => {
 
 differenceDaysEnergyBtn.addEventListener("click", differenceBetweenDaysEnergy);
 
-const calculateCondomium = () => {};
+const calculateCondominium = () => {
+  // Manipulando os inputs
+  const condominiumBillValue = condominiumBillValueInput.value;
+  const condominiumPayment = condominiumPaymentInput.value;
+  const contractEndDate = contractEndDateInput.value;
+
+  // Obtendo o primeiro dia do mês atual 
+  const date = new Date();
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
+  // convertendo as datas para objetos
+  const data1 = new Date(contractEndDate);
+  const data2 = new Date(firstDay);
+
+  // Calculando a diferença de datas
+  const diffTime = Math.abs(data2 - data1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+
+  // Calculando 
+  const valueCondominium = (condominiumBillValue / 30) * diffDays
+  const totalvalue = valueCondominium - condominiumPayment
+
+  console.log(totalvalue)
+  
+};
+
+calculateCondominiumBtn.addEventListener("click", calculateCondominium);
+
+
