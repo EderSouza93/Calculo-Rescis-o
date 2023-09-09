@@ -54,15 +54,29 @@
       </div>
       <div class="col-md-4" id="iptu">
         <h3>IPTU</h3>
-        <input class="form-control" type="number" placeholder="Valor da ultima parcela do IPTU" id="iptu-bill-value">
+        <input class="form-control" type="number" placeholder="Valor total do IPTU" id="iptu-bill-value">
         <input class="form-control" type="number" placeholder="Quanto foi pago" id="iptu-payment">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+          <div class="card-header">Valor a ser ressarcido ou devido</div>
+          <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular diferença</button>
+        </div>
       </div>
       <div class="col-md-4" id="spu">
         <h3>SPU</h3>
         <input class="form-control" type="number" placeholder="Valor da ultima parcela do SPU" id="spu-bill-value">
         <input class="form-control" type="number" placeholder="Quanto foi pago" id="spu-payment">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+          <div class="card-header">Valor a ser ressarcido ou devido</div>
+          <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular diferença</button>
+        </div>
       </div>
-      
+
     </div>
 
 
