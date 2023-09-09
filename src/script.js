@@ -28,7 +28,7 @@ const calculateSpuBtn = document.getElementById("difference-days-spu");
 const resultSpu = document.getElementById("result-spu");
 
 // Função Cálculo de Água
-const differenceBetweenDaysWater = () => {
+const calculateWater = () => {
   //manipulando os inputs
   const waterReadingDate = waterReadingDateInput.value;
   const waterBillValue = waterBillValueInput.value;
@@ -46,20 +46,20 @@ const differenceBetweenDaysWater = () => {
   let valueWaterCurrency = valueWater.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
-  });  
+  });
 
   if (data2 > data1) {
     resultWater.textContent = "Data de leitura inválida";
-  } else if (data2 < data1 && diffDays > 60) {
-    resultEnergy.textContent = "Data de medição muito antiga";
-  } else resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após o vencimento e o seu proporcional é ${valueWaterCurrency}`;
-
+  } else if (data2 < data1 && diffDays > 34) {
+    resultWater.textContent = "Data de medição muito antiga";
+  } else
+    resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após a última leitura e o seu proporcional é ${valueWaterCurrency}`;
 };
 
-differenceDaysWaterBtn.addEventListener("click", differenceBetweenDaysWater);
+differenceDaysWaterBtn.addEventListener("click", calculateWater);
 
 // Função de Cálculo de Energia
-const differenceBetweenDaysEnergy = () => {
+const calculateEnergy = () => {
   // manipulando os inputs
   const energyReadingDate = energyReadingDateInput.value;
   const energyBillValue = energyBillValueInput.value;
@@ -82,16 +82,12 @@ const differenceBetweenDaysEnergy = () => {
   // Definindo um validador para cada data de vencimento específico
   if (data2 > data1) {
     resultEnergy.textContent = "Data de leitura inválida";
-  } else if (data2 < data1 && diffDays > 60) {
+  } else if (data2 < data1 && diffDays > 34) {
     resultEnergy.textContent = "Data de medição muito antiga";
   } else
-    resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após o vencimento e o seu proporcional é ${valueEnergyCurrency}`;
-
-  console.log(diffDays);
-  console.log(valueEnergy);
-  console.log(typeof valueEnergyCurrency);
+    resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
 };
-differenceDaysEnergyBtn.addEventListener("click", differenceBetweenDaysEnergy);
+differenceDaysEnergyBtn.addEventListener("click", calculateEnergy);
 
 // Função de Cálculo do condomínio
 const calculateCondominium = () => {
@@ -114,13 +110,30 @@ const calculateCondominium = () => {
 
   // Calculando
   const valueCondominium = (condominiumBillValue / 30) * diffDays;
-  const totalCondominium = valueCondominium - condominiumPayment;
+  let totalCondominium = valueCondominium - condominiumPayment;
 
   let totalCondominiumCurrency = totalCondominium.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
   });
-  resultCondominium.textContent = `O valor a ser pago é ${totalCondominiumCurrency}`;
+
+  let convertValue = Math.abs(totalCondominium);
+
+  let convertValueCurrency = convertValue.toLocaleString("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+  if (condominiumBillValue === "") {
+    resultCondominium.textContent = "Insira dados válidos";
+  } else if (condominiumPayment == "") {
+    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio sem pagar e tem uma proporcionalidade de ${totalCondominiumCurrency} a pagar! `;
+  } else if (totalCondominium == 0) {
+    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias de condomínio e efetuou o pagamento exato de sua proporcionalidade!`;
+  } else if (totalCondominium < 0) {
+    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio e efetuou pagamento, então ele terá ${convertValueCurrency} a ser ressarcido`;
+  } else
+    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio e efetuou o pagamento, porém tem uma proporcionalidade de ${totalCondominiumCurrency} a pagar!`;
 };
 calculateCondominiumBtn.addEventListener("click", calculateCondominium);
 
@@ -145,10 +158,12 @@ const calculateIPTU = () => {
   let totalIptuCurrency = totalIptu.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
-  });  
+  });
 
-  if(totalIptu < 0) {
-    resultIptu.textContent = `Foram utilizados ${diffDays} de Iptu e o valor à ser ressarcido é ${Math.abs(totalIptuCurrency)}`;
+  if (totalIptu < 0) {
+    resultIptu.textContent = `Foram utilizados ${diffDays} de Iptu e o valor à ser ressarcido é ${Math.abs(
+      totalIptuCurrency
+    )}`;
   } else
     resultIptu.textContent = `Foram utilizados ${diffDays} de Iptu e o valor à ser pago é ${totalIptuCurrency}`;
 };
@@ -175,7 +190,7 @@ const calculateSPU = () => {
   let totalSpuCurrency = totalSpu.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
-  });  
+  });
 
   resultSpu.textContent = `Valor à ser pago é ${totalSpuCurrency}`;
 };
