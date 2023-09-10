@@ -16,7 +16,7 @@
       </div>
       <div class="col-md-4" id="rent">
         <h3>Aluguel</h3>
-        <input class="form-control" type="number" placeholder="Valor do aluguel" id="rent-bill-value" required>
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor do aluguel" id="rent-bill-value" required>
         <label for="form-control">Data do ultimo vencimento</label>
         <input class="form-control" type="date" id="rent-payment-date">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
@@ -36,7 +36,7 @@
       </div>
       <div class="col-md-4" id="water">
         <h3>Fatura de Água</h3>
-        <input class="form-control" type="number" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
         <label for="form-control">Data da ultima leitura</label>
         <input class="form-control" type="date" id="water-reading-date">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
@@ -49,7 +49,7 @@
       </div>
       <div class="col-md-4" id="energy">
         <h3>Fatura de Energia</h3>
-        <input class="form-control" type="number" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
         <label for="form-control">Data da ultima leitura</label>
         <input class="form-control" type="date" id="energy-reading-date">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
@@ -62,8 +62,8 @@
       </div>
       <div class="col-md-4" id="condominium">
         <h3>Condomínio</h3>
-        <input class="form-control" type="number" placeholder="Valor do condomínio" id="condominium-bill-value">
-        <input class="form-control" type="number" placeholder="Quanto foi pago" id="condominium-payment">
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor do condomínio" id="condominium-bill-value">
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="condominium-payment">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
           <div class="card-header">Valor a ser ressarcido ou devido</div>
           <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
@@ -74,8 +74,8 @@
       </div>
       <div class="col-md-4" id="iptu">
         <h3>IPTU</h3>
-        <input class="form-control" type="number" placeholder="Valor total do IPTU" id="iptu-bill-value">
-        <input class="form-control" type="number" placeholder="Quanto foi pago" id="iptu-payment">
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor total do IPTU" id="iptu-bill-value">
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="iptu-payment">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
           <div class="card-header">Valor a ser ressarcido ou devido</div>
           <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
@@ -86,8 +86,8 @@
       </div>
       <div class="col-md-4" id="spu">
         <h3>SPU</h3>
-        <input class="form-control" type="number" placeholder="Valor da total do SPU" id="spu-bill-value">
-        <input class="form-control" type="number" placeholder="Quanto foi pago" id="spu-payment">
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da total do SPU" id="spu-bill-value">
+        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="spu-payment">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
           <div class="card-header">Valor a ser ressarcido ou devido</div>
           <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
