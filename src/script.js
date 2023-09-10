@@ -92,7 +92,7 @@ const calculateRentBill = () => {
   } else if (allowance <= 0) {
     resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${proportionalValueCurrency}`;
   } else
-    resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e e teve um abono de ${allowancetext}, portanto terá que pagar o proporcional de ${proportionalValueCurrency}`;
+    resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e teve um abono de ${allowancetext}, portanto terá que pagar o proporcional de ${proportionalValueCurrency}`;
 
   console.log(billRent);
   console.log(typeof billRent);
@@ -305,10 +305,6 @@ const calculateIPTU = () => {
     resultIptu.textContent = `O inquilino utilizou ${diffDays} dias do IPTU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${convertValueCurrency} a ser ressarcido`;
   } else
     resultIptu.textContent = `O inquilino utilizou ${diffDays} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${totalIptuCurrency} a pagar!`;
-
-  console.log(totalIptu);
-  console.log(valueIptu);
-  console.log(typeof iptuBillValue);
 };
 calculateIptuBtn.addEventListener("click", calculateIPTU);
 

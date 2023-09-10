@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,101 +8,153 @@
     <title>Levantamento de contas</title>
   </head>
   <body>
-    <h1>Levantamento de contas</h1>
-    <div class="container">
-      <div class="col-md-4">
-        <label for="form-control">Data de finalização do contrato</label>
-        <input class="form-control" type="date" id="date-end">
-      </div>
-      <div class="col-md-4" id="rent">
-        <h3>Aluguel</h3>
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor do aluguel" id="rent-bill-value" required>
-        <label for="form-control">Data do ultimo vencimento</label>
-        <input class="form-control" type="date" id="rent-payment-date">
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card-header">Valor proporcional</div>
-          <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" target="_blank" href="https://www.cohabpremium.com.br/">
+            <img src="/img/Ícone Azul.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+            Encontro de Contas
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" target="_blank" href="https://www.cohabpremium.com.br/kurole-sistema-imobiliario/">Kurole
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" target="_blank" href="https://simuladormultarescisoriacohab.netlify.app/">Simulador de multa Rescisória</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
-          <option value="" selected>Haverá abono de dias?</option>
-          <option value="0">Não</option>
-          <option value="1">um dia</option>
-          <option value="2">dois dias</option>
-          <option value="3">três dias</option>
-        </select>
-        <div class="col-md-4">
-          <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular diferença</button>
-        </div>
-      </div>
-      <div class="col-md-4" id="water">
-        <h3>Fatura de Água</h3>
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
-        <label for="form-control">Data da ultima leitura</label>
-        <input class="form-control" type="date" id="water-reading-date">
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card-header">Valor a ser ressarcido ou devido</div>
-          <div class="card-body" style="min-height: 3rem;" id="result-water"></div>
-        </div>
-        <div class="col-md-4">
-          <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular diferença</button>
-        </div>
-      </div>
-      <div class="col-md-4" id="energy">
-        <h3>Fatura de Energia</h3>
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
-        <label for="form-control">Data da ultima leitura</label>
-        <input class="form-control" type="date" id="energy-reading-date">
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card-header">Valor a ser ressarcido ou devido</div>
-          <div class="card-body" style="min-height: 3rem;" id="result-energy"></div>
-        </div>
-        <div class="col-md-4">
-          <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular diferença</button>
+      </nav>
+    </header>
+    <section>
+      <div class="container-date">
+        <div class="col-md-4 col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Data de finalização do contrato</h6>
+              <input class="form-control" type="date" id="date-end">
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4" id="condominium">
-        <h3>Condomínio</h3>
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor do condomínio" id="condominium-bill-value">
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="condominium-payment">
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card-header">Valor a ser ressarcido ou devido</div>
-          <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
+      <div class="container">
+        <div class="col-md-4 col-sm-6" id="rent">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Aluguel</h5>
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor do aluguel" id="rent-bill-value" required>
+              <label for="form-control">Data do ultimo vencimento</label>
+              <input class="form-control" type="date" id="rent-payment-date">
+              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Proporcionalidade</div>
+                <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
+              </div>
+              <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
+                <option value="" selected>Haverá abono de dias?</option>
+                <option value="0">Não</option>
+                <option value="1">um dia</option>
+                <option value="2">dois dias</option>
+                <option value="3">três dias</option>
+              </select>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular diferença</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular diferença</button>
+        <div class="col-md-4 col-sm-6" id="energy">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Fatura de Energia</h5>
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
+              <label for="form-control">Data da ultima leitura</label>
+              <input class="form-control" type="date" id="energy-reading-date">
+              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Proporcionalidade</div>
+                <div class="card-body" style="min-height: 3rem;" id="result-energy"></div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular diferença</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" id="water">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Fatura de Água</h5>
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
+              <label for="form-control">Data da ultima leitura</label>
+              <input class="form-control" type="date" id="water-reading-date">
+              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Proporcionalidade</div>
+                <div class="card-body" style="min-height: 3rem;" id="result-water"></div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular diferença</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" id="condominium">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Condomínio</h5>
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor do condomínio" id="condominium-bill-value">
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="condominium-payment">
+              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Proporcionalidade</div>
+                <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular diferença</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" id="iptu">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">IPTU</h5>
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor total do IPTU" id="iptu-bill-value">
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="iptu-payment">
+              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Proporcionalidade</div>
+                <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular diferença</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6" id="spu">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">SPU</h5>
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da total do SPU" id="spu-bill-value">
+              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="spu-payment">
+              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Proporcionalidade</div>
+                <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular diferença</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4" id="iptu">
-        <h3>IPTU</h3>
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor total do IPTU" id="iptu-bill-value">
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="iptu-payment">
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card-header">Valor a ser ressarcido ou devido</div>
-          <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
-        </div>
-        <div class="col-md-4">
-          <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular diferença</button>
-        </div>
-      </div>
-      <div class="col-md-4" id="spu">
-        <h3>SPU</h3>
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da total do SPU" id="spu-bill-value">
-        <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="spu-payment">
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-          <div class="card-header">Valor a ser ressarcido ou devido</div>
-          <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
-        </div>
-        <div class="col-md-4">
-          <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular diferença</button>
-        </div>
-      </div>
-
-    </div>
-
-
-
-
-
+    </section>
 
     <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js" crossorigin="anonymous"></script>
     <script type="importmap">
