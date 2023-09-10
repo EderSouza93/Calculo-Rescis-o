@@ -93,9 +93,6 @@ const calculateRentBill = () => {
     resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${proportionalValueCurrency}`;
   } else
     resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e teve um abono de ${allowancetext}, portanto terá que pagar o proporcional de ${proportionalValueCurrency}`;
-
-  console.log(billRent);
-  console.log(typeof billRent);
 };
 calculatedBtnRent.addEventListener("click", calculateRentBill);
 
