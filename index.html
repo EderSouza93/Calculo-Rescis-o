@@ -14,6 +14,26 @@
         <label for="form-control">Data de finalização do contrato</label>
         <input class="form-control" type="date" id="date-end">
       </div>
+      <div class="col-md-4" id="rent">
+        <h3>Aluguel</h3>
+        <input class="form-control" type="number" placeholder="Valor do aluguel" id="rent-bill-value" required>
+        <label for="form-control">Data do ultimo vencimento</label>
+        <input class="form-control" type="date" id="rent-payment-date">
+        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+          <div class="card-header">Valor proporcional</div>
+          <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
+        </div>
+        <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
+          <option value="" selected>Haverá abono de dias?</option>
+          <option value="0">Não</option>
+          <option value="1">um dia</option>
+          <option value="2">dois dias</option>
+          <option value="3">três dias</option>
+        </select>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular diferença</button>
+        </div>
+      </div>
       <div class="col-md-4" id="water">
         <h3>Fatura de Água</h3>
         <input class="form-control" type="number" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
@@ -42,7 +62,7 @@
       </div>
       <div class="col-md-4" id="condominium">
         <h3>Condomínio</h3>
-        <input class="form-control" type="number" placeholder="Valor do ultimo boleto de condomínio" id="condominium-bill-value">
+        <input class="form-control" type="number" placeholder="Valor do condomínio" id="condominium-bill-value">
         <input class="form-control" type="number" placeholder="Quanto foi pago" id="condominium-payment">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
           <div class="card-header">Valor a ser ressarcido ou devido</div>
@@ -66,7 +86,7 @@
       </div>
       <div class="col-md-4" id="spu">
         <h3>SPU</h3>
-        <input class="form-control" type="number" placeholder="Valor da ultima parcela do SPU" id="spu-bill-value">
+        <input class="form-control" type="number" placeholder="Valor da total do SPU" id="spu-bill-value">
         <input class="form-control" type="number" placeholder="Quanto foi pago" id="spu-payment">
         <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
           <div class="card-header">Valor a ser ressarcido ou devido</div>
