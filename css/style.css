@@ -10,9 +10,26 @@ body {
   background-color: darkgrey;
 }
 
+.container-data{
+  margin-left: .8rem;
+  margin-right: .8rem;
+}
+
+.card{
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-color: black;
+}
+
 @media (min-width: 576px) {
+  .container-data {
+    display: flex;
+    flex-flow: row nowrap;
+  }
   .container{
     display: flex;
     flex-flow: row wrap;
   }
+ 
 }

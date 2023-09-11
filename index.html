@@ -36,7 +36,23 @@
       </nav>
     </header>
     <section>
-      <div class="container-date">
+      <div class="container-data">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Locatário</h6>
+              <input class="form-control" placeholder="Nome Completo" type="text" id="name">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Contrato</h6>
+              <input class="form-control" placeholder="Contrato Imóvel" type="text" id="contratct">
+            </div>
+          </div>
+        </div>
         <div class="col-md-4 col-sm-6">
           <div class="card">
             <div class="card-body">
@@ -58,13 +74,6 @@
                 <div class="card-header">Proporcionalidade</div>
                 <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
               </div>
-              <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
-                <option value="" selected>Haverá abono de dias?</option>
-                <option value="0">Não</option>
-                <option value="1">um dia</option>
-                <option value="2">dois dias</option>
-                <option value="3">três dias</option>
-              </select>
               <div class="col-md-4">
                 <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular diferença</button>
               </div>
@@ -150,6 +159,20 @@
               <div class="col-md-4">
                 <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular diferença</button>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Abono de dias</h5>
+              <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
+                <option value="" selected>Haverá abono de dias?</option>
+                <option value="0">Não</option>
+                <option value="1">um dia</option>
+                <option value="2">dois dias</option>
+                <option value="3">três dias</option>
+              </select>
             </div>
           </div>
         </div>
