@@ -23,13 +23,21 @@ body {
 }
 
 @media (min-width: 576px) {
-  .container-data {
+
+  .container-data{
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
   }
+
   .container{
     display: flex;
     flex-flow: row wrap;
   }
- 
+}
+
+@media (min-width: 768px) {
+  .container-data{
+    display: flex;
+    flex-flow: row wrap;
+  }
 }

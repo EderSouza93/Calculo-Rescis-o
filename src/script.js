@@ -3,6 +3,7 @@ const contractEndDateInput = document.getElementById("date-end");
 const billRentInput = document.getElementById("rent-bill-value");
 const datePayRentInput = document.getElementById("rent-payment-date");
 const resultRent = document.getElementById("result-rent");
+const resultFine = document.getElementById("result-fine");
 const dayAllowance = document.getElementById("day-allowance");
 const calculatedBtnRent = document.getElementById("calculated-rent");
 const waterBillValueInput = document.getElementById("water-bill-value");
@@ -55,16 +56,14 @@ function mascaraMoeda(campo, evento) {
   campo.value = resultado.reverse();
 }
 
+var contractEndDate = contractEndDateInput.value;
+var billRent = billRentInput.value;
+//Convertendo a String da mascara para number
+var billRentFormat = parseFloat(billRent.replace(/\./g, "").replace(",", "."));
+
 // Função de calculo de aluguel
 const calculateRentBill = () => {
-  const contractEndDate = contractEndDateInput.value;
-  const billRent = billRentInput.value;
   const datePayRent = datePayRentInput.value;
-
-  //Convertendo a String da mascara para number
-  const billRentFormat = parseFloat(
-    billRent.replace(/\./g, "").replace(",", ".")
-  );
 
   const data1 = new Date(contractEndDate);
   const data2 = new Date(datePayRent);
@@ -95,6 +94,21 @@ const calculateRentBill = () => {
     resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e teve um abono de ${allowancetext}, portanto terá que pagar o proporcional de ${proportionalValueCurrency}`;
 };
 calculatedBtnRent.addEventListener("click", calculateRentBill);
+
+const calculateFineTerminator = () => {
+  const startContractInput = document.getElementById("start-contract");
+  const terminatorFineInput = document.getElementById("terminator-fine");
+  const startContract = startContractInput.value;
+  const terminatorFine = terminatorFineInput.value;
+
+  const data1 = new Date(startContract);
+  const data2 = new Date(contractEndDate);
+
+  const diffTime = Math.abs(data2 - data1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+
+  const nonUseDays = terminatorFine - diffDays;
+};
 
 // Função Cálculo de Água
 const calculateWater = () => {

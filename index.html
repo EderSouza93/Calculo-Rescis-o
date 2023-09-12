@@ -27,9 +27,6 @@
               <li class="nav-item">
                 <a class="nav-link" target="_blank" href="https://simuladormultarescisoriacohab.netlify.app/">Simulador de multa Rescisória</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-              </li>
             </ul>
           </div>
         </div>
@@ -37,7 +34,7 @@
     </header>
     <section>
       <div class="container-data">
-        <div class="col">
+        <div class=" col-sm-11 col-md-5">
           <div class="card">
             <div class="card-body">
               <h6 class="card-title">Locatário</h6>
@@ -45,15 +42,15 @@
             </div>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-11 col-md-3">
           <div class="card">
             <div class="card-body">
               <h6 class="card-title">Contrato</h6>
-              <input class="form-control" placeholder="Contrato Imóvel" type="text" id="contratct">
+              <input class="form-control" placeholder="KSI" type="text" id="contratct">
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6">
+        <div class="col-sm-11 col-md-4">
           <div class="card">
             <div class="card-body">
               <h6 class="card-title">Data de finalização do contrato</h6>
@@ -63,7 +60,7 @@
         </div>
       </div>
       <div class="container">
-        <div class="col-md-4 col-sm-6" id="rent">
+        <div class="col-ms-12 col-md-6" id="rent">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Aluguel</h5>
@@ -75,12 +72,36 @@
                 <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular diferença</button>
+                <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6" id="energy">
+        <div class="col-ms-12 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Cálculo de multa Rescisória</h5>
+              <label for="select">Vigência do Contrato</label>
+              <select class="form-select form-select-sm" aria-label="Small select example" id="terminator-fine">
+                <option value="1" selected>1 ano</option>
+                <option value="2">2 anos</option>
+                <option value="3">3 anos</option>
+                <option value="4">4 anos</option>
+                <option value="5">5 anos</option>
+              </select>
+              <label for="form-control">Início do contrato</label>
+              <input class="form-control" type="date" id="start-contract">
+              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Resultado</div>
+                <div class="card-body" style="min-height: 3rem;" id="result-fine"></div>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" id="energy">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Fatura de Energia</h5>
@@ -91,13 +112,13 @@
                 <div class="card-header">Proporcionalidade</div>
                 <div class="card-body" style="min-height: 3rem;" id="result-energy"></div>
               </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular diferença</button>
+              <div class="col-sm-4 col-md-6">
+                <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6" id="water">
+        <div class="col-md-6" id="water">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Fatura de Água</h5>
@@ -109,12 +130,12 @@
                 <div class="card-body" style="min-height: 3rem;" id="result-water"></div>
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular diferença</button>
+                <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6" id="condominium">
+        <div class="col-md-6" id="condominium">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Condomínio</h5>
@@ -125,12 +146,12 @@
                 <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular diferença</button>
+                <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6" id="iptu">
+        <div class="col-md-6" id="iptu">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">IPTU</h5>
@@ -141,12 +162,12 @@
                 <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular diferença</button>
+                <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6" id="spu">
+        <div class="col-md-6" id="spu">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">SPU</h5>
@@ -157,7 +178,7 @@
                 <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular diferença</button>
+                <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular</button>
               </div>
             </div>
           </div>
