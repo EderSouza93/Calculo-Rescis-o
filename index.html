@@ -21,11 +21,16 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://www.cohabpremium.com.br/kurole-sistema-imobiliario/">Kurole
-                </a>
+                <a class="nav-link" target="_blank" href="https://www.cohabpremium.com.br/kurole-sistema-imobiliario/">Kurole</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://simuladormultarescisoriacohab.netlify.app/">Simulador de multa Rescisória</a>
+                <a class="nav-link" target="_blank" href="https://energisa.com.br/paginas/servicos-online/autoatendimento/extrato-e-2via-da-conta.aspx">Energisa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" target="_blank" href="http://www.deso-se.com.br/agenciavirtual/index.php">Deso</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" target="_blank" href="https://fazenda.aracaju.se.gov.br/#/publica/contribuinte/consulta-debito/busca/IPTU">IPTU</a>
               </li>
             </ul>
           </div>
@@ -60,7 +65,7 @@
         </div>
       </div>
       <div class="container">
-        <div class="col-ms-12 col-md-6" id="rent">
+        <div class="col-md-4" id="rent">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Aluguel</h5>
@@ -77,17 +82,22 @@
             </div>
           </div>
         </div>
-        <div class="col-ms-12 col-md-6">
+        <div class="col-md-4">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Cálculo de multa Rescisória</h5>
               <label for="select">Vigência do Contrato</label>
               <select class="form-select form-select-sm" aria-label="Small select example" id="terminator-fine">
-                <option value="1" selected>1 ano</option>
-                <option value="2">2 anos</option>
-                <option value="3">3 anos</option>
-                <option value="4">4 anos</option>
-                <option value="5">5 anos</option>
+                <option value="365" selected>1 ano</option>
+                <option value="730">2 anos</option>
+                <option value="1095">3 anos</option>
+                <option value="1460">4 anos</option>
+                <option value="1825">5 anos</option>
+                <option value="2190">6 anos</option>
+                <option value="2555">7 anos</option>
+                <option value="2920">8 anos</option>
+                <option value="3285">9 anos</option>
+                <option value="3650">10 anos</option>
               </select>
               <label for="form-control">Início do contrato</label>
               <input class="form-control" type="date" id="start-contract">
@@ -96,12 +106,12 @@
                 <div class="card-body" style="min-height: 3rem;" id="result-fine"></div>
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular</button>
+                <button type="button" class="btn btn-outline-primary" id="calculated-fine">Calcular</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6" id="energy">
+        <div class="col-md-4" id="energy">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Fatura de Energia</h5>
@@ -118,7 +128,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6" id="water">
+        <div class="col-md-4" id="water">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Fatura de Água</h5>
@@ -135,7 +145,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6" id="condominium">
+        <div class="col-md-4" id="condominium">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Condomínio</h5>
@@ -151,7 +161,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6" id="iptu">
+        <div class="col-md-4" id="iptu">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">IPTU</h5>
@@ -167,7 +177,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6" id="spu">
+        <div class="col-md-4" id="spu">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">SPU</h5>

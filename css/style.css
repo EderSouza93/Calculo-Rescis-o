@@ -35,9 +35,4 @@ body {
   }
 }
 
-@media (min-width: 768px) {
-  .container-data{
-    display: flex;
-    flex-flow: row wrap;
-  }
-}
+
