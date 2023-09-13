@@ -4,9 +4,9 @@ const billRentInput = document.getElementById("rent-bill-value");
 const datePayRentInput = document.getElementById("rent-payment-date");
 const resultRent = document.getElementById("result-rent");
 const startContractInput = document.getElementById("start-contract");
-const terminatorFineInput = document.getElementById("terminator-fine");
+const terminatorFine = document.getElementById("terminator-fine");
 const resultFine = document.getElementById("result-fine");
-const calculateFineBtn = document.getElementById("calculated-fine")
+const calculateFineBtn = document.getElementById("calculated-fine");
 const dayAllowance = document.getElementById("day-allowance");
 const calculatedBtnRent = document.getElementById("calculated-rent");
 const waterBillValueInput = document.getElementById("water-bill-value");
@@ -66,8 +66,9 @@ const calculateRentBill = () => {
   const datePayRent = datePayRentInput.value;
 
   //Convertendo a String da mascara para number
-  const billRentFormat = parseFloat(billRent.replace(/\./g, "").replace(",", "."));
-  
+  const billRentFormat = parseFloat(
+    billRent.replace(/\./g, "").replace(",", ".")
+  );
 
   const data1 = new Date(contractEndDate);
   const data2 = new Date(datePayRent);
@@ -96,41 +97,51 @@ const calculateRentBill = () => {
     resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${proportionalValueCurrency}`;
   } else
     resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e teve um abono de ${allowancetext}, portanto terá que pagar o proporcional de ${proportionalValueCurrency}`;
-  console.log(contractEndDate);
-  console.log(billRent);
-  };
+};
 calculatedBtnRent.addEventListener("click", calculateRentBill);
 
 const calculateFineTerminator = () => {
   const contractEndDate = contractEndDateInput.value;
   const startContract = startContractInput.value;
-  const terminatorFine = terminatorFineInput.value;
   const billRent = billRentInput.value;
-  
+  const terminatorFineValue =
+    terminatorFine.options[terminatorFine.selectedIndex].value;
+  const terminatorFineText =
+    terminatorFine.options[terminatorFine.selectedIndex].text;
 
   const data1 = new Date(contractEndDate);
   const data2 = new Date(startContract);
 
   const diffTime = Math.abs(data2 - data1);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
- 
-  // Definindo os dias de não uso 
-  const nonUseDays = terminatorFine - diffDays;
+
+  // Definindo os dias de não uso
+  const nonUseDays = terminatorFineValue - diffDays;
 
   //Convertendo a String da mascara para number
-  const billRentFormat = parseFloat(billRent.replace(/\./g, "").replace(",", "."));
+  const billRentFormat = parseFloat(
+    billRent.replace(/\./g, "").replace(",", ".")
+  );
 
-  // Calculando a multa rescisória 
-  const valueFineTerminator = (3 * billRentFormat * nonUseDays / terminatorFine);
+  // Calculando a multa rescisória
+  const totalFineTerminator =
+    (3 * billRentFormat * nonUseDays) / terminatorFineValue;
 
-  let fineTerminatorCurrency = valueFineTerminator.toLocaleString("pt-br", {
+  let fineTerminatorCurrency = totalFineTerminator.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
   });
 
-  console.log(fineTerminatorCurrency)
+  if (contractEndDate === "" || startContract === "" || billRent === "")
+    resultFine.textContent = "Insira todos os dados válidos!";
+  else if (diffDays >= terminatorFineValue)
+    resultFine.textContent = "O contrato não possui multa rescisória";
+  else
+    resultFine.textContent = `O inquilino utilizou ${diffDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${fineTerminatorCurrency} em seu boleto final`;
+
+  console.log(diffDays);
 };
-calculateFineBtn.addEventListener("click", calculateFineTerminator)
+calculateFineBtn.addEventListener("click", calculateFineTerminator);
 
 // Função Cálculo de Água
 const calculateWater = () => {

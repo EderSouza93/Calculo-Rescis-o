@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="shortcut icon" href="/img/cohabfvicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
     <title>Levantamento de contas</title>
   </head>
@@ -68,149 +69,154 @@
           </div>
         </div>
       </div>
+
       <div class="container">
-        <div class="col-md-4" id="rent">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Aluguel</h5>
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor do aluguel" id="rent-bill-value" required>
-              <label for="form-control">Data do ultimo vencimento</label>
-              <input class="form-control" type="date" id="rent-payment-date">
-              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Proporcionalidade</div>
-                <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Cálculo de multa Rescisória</h5>
-              <label for="select">Vigência do Contrato</label>
-              <select class="form-select form-select-sm" aria-label="Small select example" id="terminator-fine">
-                <option value="365" selected>1 ano</option>
-                <option value="730">2 anos</option>
-                <option value="1095">3 anos</option>
-                <option value="1460">4 anos</option>
-                <option value="1825">5 anos</option>
-                <option value="2190">6 anos</option>
-                <option value="2555">7 anos</option>
-                <option value="2920">8 anos</option>
-                <option value="3285">9 anos</option>
-                <option value="3650">10 anos</option>
-              </select>
-              <label for="form-control">Início do contrato</label>
-              <input class="form-control" type="date" id="start-contract">
-              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Resultado</div>
-                <div class="card-body" style="min-height: 3rem;" id="result-fine"></div>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="calculated-fine">Calcular</button>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col-md-4" id="rent">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Aluguel</h5>
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor do aluguel" id="rent-bill-value" required>
+                <label for="form-control">Data do ultimo vencimento</label>
+                <input class="form-control" type="date" id="rent-payment-date">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Proporcionalidade</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4" id="energy">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Fatura de Energia</h5>
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
-              <label for="form-control">Data da ultima leitura</label>
-              <input class="form-control" type="date" id="energy-reading-date">
-              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Proporcionalidade</div>
-                <div class="card-body" style="min-height: 3rem;" id="result-energy"></div>
-              </div>
-              <div class="col-sm-4 col-md-6">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" id="water">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Fatura de Água</h5>
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
-              <label for="form-control">Data da ultima leitura</label>
-              <input class="form-control" type="date" id="water-reading-date">
-              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Proporcionalidade</div>
-                <div class="card-body" style="min-height: 3rem;" id="result-water"></div>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular</button>
+          <div class="col-md-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Cálculo de multa Rescisória</h5>
+                <label for="select">Vigência do Contrato</label>
+                <select class="form-select form-select-sm" aria-label="Small select example" id="terminator-fine">
+                  <option value="365" selected>1 ano</option>
+                  <option value="730">2 anos</option>
+                  <option value="1095">3 anos</option>
+                  <option value="1460">4 anos</option>
+                  <option value="1825">5 anos</option>
+                  <option value="2190">6 anos</option>
+                  <option value="2555">7 anos</option>
+                  <option value="2920">8 anos</option>
+                  <option value="3285">9 anos</option>
+                  <option value="3650">10 anos</option>
+                </select>
+                <label for="form-control">Início do contrato</label>
+                <input class="form-control" type="date" id="start-contract">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Resultado</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-fine"></div>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-outline-primary" id="calculated-fine">Calcular</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4" id="condominium">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Condomínio</h5>
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor do condomínio" id="condominium-bill-value">
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="condominium-payment">
-              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Proporcionalidade</div>
-                <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4" id="iptu">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">IPTU</h5>
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor total do IPTU" id="iptu-bill-value">
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="iptu-payment">
-              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Proporcionalidade</div>
-                <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular</button>
+          <div class="col-md-4" id="energy">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Fatura de Energia</h5>
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
+                <label for="form-control">Data da ultima leitura</label>
+                <input class="form-control" type="date" id="energy-reading-date">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Proporcionalidade</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-energy"></div>
+                </div>
+                <div class="col-sm-4 col-md-6">
+                  <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4" id="spu">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">SPU</h5>
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da total do SPU" id="spu-bill-value">
-              <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="spu-payment">
-              <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-header">Proporcionalidade</div>
-                <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular</button>
+          <div class="col-md-4" id="water">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Fatura de Água</h5>
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
+                <label for="form-control">Data da ultima leitura</label>
+                <input class="form-control" type="date" id="water-reading-date">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Proporcionalidade</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-water"></div>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Abono de dias</h5>
-              <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
-                <option value="" selected>Haverá abono de dias?</option>
-                <option value="0">Não</option>
-                <option value="1">um dia</option>
-                <option value="2">dois dias</option>
-                <option value="3">três dias</option>
-              </select>
+          <div class="col-md-4" id="condominium">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Condomínio</h5>
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor do condomínio" id="condominium-bill-value">
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="condominium-payment">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Proporcionalidade</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular</button>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="col-md-4" id="iptu">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">IPTU</h5>
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor total do IPTU" id="iptu-bill-value">
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="iptu-payment">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Proporcionalidade</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" id="spu">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">SPU</h5>
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da total do SPU" id="spu-bill-value">
+                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="spu-payment">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Proporcionalidade</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Abono de dias</h5>
+                <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
+                  <option value="" selected>Haverá abono de dias?</option>
+                  <option value="0">Não</option>
+                  <option value="1">um dia</option>
+                  <option value="2">dois dias</option>
+                  <option value="3">três dias</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
 
