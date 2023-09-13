@@ -74,7 +74,7 @@ const calculateRentBill = () => {
   const data2 = new Date(datePayRent);
 
   const diffTime = Math.abs(data2 - data1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   let allowance = dayAllowance.options[dayAllowance.selectedIndex].value;
   let allowancetext = dayAllowance.options[dayAllowance.selectedIndex].text;
