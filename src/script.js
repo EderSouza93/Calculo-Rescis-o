@@ -204,7 +204,7 @@ const calculateEnergy = () => {
 
   // Calculando a diferença de datas
   const diffTime = Math.abs(data2 - data1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   const valueEnergy = (billEnergyFormat / 30) * diffDays;
 
