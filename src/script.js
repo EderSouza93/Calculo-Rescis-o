@@ -309,10 +309,11 @@ const calculateIPTU = () => {
     iptuPayment.replace(/\./g, "").replace(",", ".")
   );
 
+  // Obtendo a data atual 
   const currentYear = new Date().getFullYear();
   const currentTime = new Date(`January 01 ${currentYear}`);
   
-
+  // Validando se o contrato iniciou antes ou depois do ano vigente para o calculo de proporcionalidade de IPTU
   const data1 = new Date(contractEndDate);
   const data2 = new Date(currentTime);
   const data3 = new Date(startContract);
