@@ -161,7 +161,7 @@ const calculateWater = () => {
   const data2 = new Date(waterReadingDate);
 
   const diffTime = Math.abs(data2 - data1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   // Calculando o valor a ser ressarcido de água
   const valueWater = (billWaterFormat / 30) * diffDays;
 
