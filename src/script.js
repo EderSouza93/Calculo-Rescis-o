@@ -35,6 +35,7 @@ const spuBillValueInput = document.getElementById("spu-bill-value");
 const spuPaymentInput = document.getElementById("spu-payment");
 const calculateSpuBtn = document.getElementById("difference-days-spu");
 const resultSpu = document.getElementById("result-spu");
+const calculatedGeneral = document.getElementById("calculated-all");
 
 // máscara de moeda
 String.prototype.reverse = function () {
@@ -355,15 +356,15 @@ const calculateIPTU = () => {
   const tolerance = 0.01;
 
   if (contractEndDate === "" || iptuBillValue === "") {
-    resultIptu.textContent = "Insira dados válidos";
+    resultIptu.textContent = "Em desenvolvimento não utilizar esse recurso";
   } else if (iptuPayment == "") {
-    resultIptu.textContent = `O inquilino não efetuou nenhum pagamento referente ao ano de ${currentYear}, utilizou ${diffDays} dias e terá uma proporcionalide de ${IptuCurrency} a pagar!`;
+    resultIptu.textContent = `Em desenvolvimento não utilizar esse recurso`;
   } else if (Math.abs(totalIptu) < tolerance) {
-    resultIptu.textContent = `O inquilino utilizou ${diffDays} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento exato de sua proporcionalidade`;
+    resultIptu.textContent = `Em desenvolvimento não utilizar esse recurso`;
   } else if (totalIptu < 0) {
-    resultIptu.textContent = `O inquilino utilizou ${diffDays} dias do IPTU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${convertValueCurrency} a ser ressarcido`;
+    resultIptu.textContent = `Em desenvolvimento não utilizar esse recurso`;
   } else
-    resultIptu.textContent = `O inquilino utilizou ${diffDays} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${totalIptuCurrency} a pagar!`;
+    resultIptu.textContent = `Em desenvolvimento não utilizar esse recurso`;
 };
 calculateIptuBtn.addEventListener("click", calculateIPTU);
 
@@ -414,14 +415,24 @@ const calculateSPU = () => {
   const tolerance = 0.01;
 
   if (contractEndDate === "" || spuBillValue === "") {
-    resultSpu.textContent = "Insira dados válidos";
+    resultSpu.textContent = "Em desenvolvimento não utilizar esse recurso";
   } else if (spuPayment == "") {
-    resultSpu.textContent = `O inquilino não efetuou nenhum pagamento referente ao ano de ${currentYear}, utilizou ${diffDays} dias e terá uma proporcionalide de ${valueSpuCurrency} a pagar!`;
+    resultSpu.textContent = `Em desenvolvimento não utilizar esse recurso`;
   } else if (Math.abs(totalSpu) < tolerance) {
-    resultSpu.textContent = `O inquilino utilizou ${diffDays} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento exato de sua proporcionalidade`;
+    resultSpu.textContent = `Em desenvolvimento não utilizar esse recurso`;
   } else if (totalSpu < 0) {
-    resultSpu.textContent = `O inquilino utilizou ${diffDays} dias do SPU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${convertValueCurrency} a ser ressarcido`;
-  } else
-    resultSpu.textContent = `O inquilino utilizou ${diffDays} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${totalSpuCurrency} a pagar!`;
+    resultSpu.textContent = `Em desenvolvimento não utilizar esse recurso`;
+  } else resultSpu.textContent = `Em desenvolvimento não utilizar esse recurso`;
 };
 calculateSpuBtn.addEventListener("click", calculateSPU);
+
+calculatedGeneral.addEventListener(
+  "click",
+  calculateRentBill,
+  calculateFineTerminator,
+  calculateWater,
+  calculateEnergy,
+  calculateCondominium,
+  calculateIPTU,
+  calculateSPU
+);
