@@ -139,8 +139,6 @@ const calculateFineTerminator = () => {
     resultFine.textContent = "O contrato não possui multa rescisória";
   else
     resultFine.textContent = `O inquilino utilizou ${diffDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${fineTerminatorCurrency} em seu boleto final`;
-
-  
 };
 calculateFineBtn.addEventListener("click", calculateFineTerminator);
 
@@ -309,35 +307,32 @@ const calculateIPTU = () => {
     iptuPayment.replace(/\./g, "").replace(",", ".")
   );
 
-  // Obtendo a data atual 
+  // Obtendo a data atual
   const currentYear = new Date().getFullYear();
   const currentTime = new Date(`January 01 ${currentYear}`);
-  
+
   // Validando se o contrato iniciou antes ou depois do ano vigente para o calculo de proporcionalidade de IPTU
   const data1 = new Date(contractEndDate);
   const data2 = new Date(currentTime);
   const data3 = new Date(startContract);
-  
-  let diffTimeIptu
-  let diffDaysIptu
-  if (data2 < data3) {
-    console.log("O inicio do contrato é após o 01/01 do ano corrente");
-      diffTimeIptu = Math.abs(data3 - data1);
-      diffDaysIptu = Math.ceil(diffTimeIptu / (1000 * 60 * 60 * 24) + 1);
-  } else if (data2 > data3) {
-    console.log("O inicio do contrato é anterior a data de 01/01 do ano corretente");
-     diffTimeIptu = Math.abs(data2 - data1);
-     diffDaysIptu = Math.ceil(diffTimeIptu / (1000 * 60 * 60 * 24) + 1);
-  } else {"verificar"}
-  
-  
-  console.log(diffDaysIptu)
 
-  
-  
+  let diffTimeIptu;
+  let diffDaysIptu;
+  if (data2 < data3) {
+    diffTimeIptu = Math.abs(data3 - data1);
+    diffDaysIptu = Math.ceil(diffTimeIptu / (1000 * 60 * 60 * 24) + 1);
+  } else if (data2 > data3) {
+    diffTimeIptu = Math.abs(data2 - data1);
+    diffDaysIptu = Math.ceil(diffTimeIptu / (1000 * 60 * 60 * 24) + 1);
+  } else {
+    ("verificar");
+  }
 
   const valueIptu = (iptuBillFormated / 365) * diffDaysIptu;
   const totalIptu = valueIptu - iptuPaymentFormat;
+
+  console.log(totalIptu);
+  console.log(valueIptu);
 
   let IptuCurrency = valueIptu.toLocaleString("pt-br", {
     style: "currency",
@@ -351,8 +346,6 @@ const calculateIPTU = () => {
     currency: "BRL",
   });
 
-    console.log(convertValueCurrency)
-    
   // definindo uma tolerância para evitar problemas com o ponto flotuante.
   const tolerance = 0.01;
 
@@ -426,14 +419,3 @@ const calculateSPU = () => {
   } else resultSpu.textContent = `Em desenvolvimento não utilizar esse recurso`;
 };
 calculateSpuBtn.addEventListener("click", calculateSPU);
-
-calculatedGeneral.addEventListener(
-  "click",
-  calculateRentBill,
-  calculateFineTerminator,
-  calculateWater,
-  calculateEnergy,
-  calculateCondominium,
-  calculateIPTU,
-  calculateSPU
-);
