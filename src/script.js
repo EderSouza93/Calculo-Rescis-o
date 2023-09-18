@@ -1,9 +1,9 @@
 // DOM variables
+const startContractInput = document.getElementById("start-contract");
 const contractEndDateInput = document.getElementById("date-end");
 const billRentInput = document.getElementById("rent-bill-value");
 const datePayRentInput = document.getElementById("rent-payment-date");
 const resultRent = document.getElementById("result-rent");
-const startContractInput = document.getElementById("start-contract");
 const terminatorFine = document.getElementById("terminator-fine");
 const resultFine = document.getElementById("result-fine");
 const calculateFineBtn = document.getElementById("calculated-fine");
@@ -133,12 +133,13 @@ const calculateFineTerminator = () => {
     currency: "BRL",
   });
 
-  if (contractEndDate === "" || startContract === "" || billRent === "")
+  if (contractEndDate === "" || startContract === "" || billRent === "") {
     resultFine.textContent = "Insira todos os dados válidos!";
-  else if (diffDays >= terminatorFineValue)
+  } else if (diffDays >= terminatorFineValue) {
     resultFine.textContent = "O contrato não possui multa rescisória";
-  else
+  } else {
     resultFine.textContent = `O inquilino utilizou ${diffDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${fineTerminatorCurrency} em seu boleto final`;
+  }
 };
 calculateFineBtn.addEventListener("click", calculateFineTerminator);
 
