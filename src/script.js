@@ -1,45 +1,56 @@
 // DOM variables
-const startContractInput = document.getElementById("start-contract");
-const contractEndDateInput = document.getElementById("date-end");
-const billRentInput = document.getElementById("rent-bill-value");
-const datePayRentInput = document.getElementById("rent-payment-date");
-const resultRent = document.getElementById("result-rent");
-const terminatorFine = document.getElementById("terminator-fine");
-const resultFine = document.getElementById("result-fine");
-const calculateFineBtn = document.getElementById("calculated-fine");
-const dayAllowance = document.getElementById("day-allowance");
-const calculatedBtnRent = document.getElementById("calculated-rent");
-const waterBillValueInput = document.getElementById("water-bill-value");
-const waterReadingDateInput = document.getElementById("water-reading-date");
-const resultWater = document.getElementById("result-water");
-const differenceDaysWaterBtn = document.getElementById("difference-days-water");
-const energyBillValueInput = document.getElementById("energy-bill-value");
-const energyReadingDateInput = document.getElementById("energy-reading-date");
-const resultEnergy = document.getElementById("result-energy");
-const differenceDaysEnergyBtn = document.getElementById(
-  "difference-days-energy"
-);
-const condominiumBillValueInput = document.getElementById(
-  "condominium-bill-value"
-);
-const condominiumPaymentInput = document.getElementById("condominium-payment");
-const calculateCondominiumBtn = document.getElementById(
-  "difference-days-condominuim"
-);
-const resultCondominium = document.getElementById("result-condominium");
-const iptuBillValueInput = document.getElementById("iptu-bill-value");
-const iptuPaymentInput = document.getElementById("iptu-payment");
-const resultIptu = document.getElementById("result-iptu");
-const calculateIptuBtn = document.getElementById("difference-days-iptu");
-const spuBillValueInput = document.getElementById("spu-bill-value");
-const spuPaymentInput = document.getElementById("spu-payment");
-const calculateSpuBtn = document.getElementById("difference-days-spu");
-const resultSpu = document.getElementById("result-spu");
-const calculatedGeneral = document.getElementById("calculated-all");
+const inputs = {
+  startContract: document.getElementById("start-contract"),
+  contractEndDate: document.getElementById("date-end"),
+  billRent: document.getElementById("rent-bill-value"),
+  datePayRent: document.getElementById("rent-payment-date"),
+  waterBillValue: document.getElementById("water-bill-value"),
+  waterReadingDate: document.getElementById("water-reading-date"),
+  energyBillValue: document.getElementById("energy-bill-value"),
+  energyReadingDate: document.getElementById("energy-reading-date"),
+  condominiumBillValue: document.getElementById("condominium-bill-value"),
+  condominiumPayment: document.getElementById("condominium-payment"),
+  iptuBillValue: document.getElementById("iptu-bill-value"),
+  iptuPayment: document.getElementById("iptu-payment"),
+  spuBillValue: document.getElementById("spu-bill-value"),
+  spuPayment: document.getElementById("spu-payment"),
+};
+
+const results = {
+  rent: document.getElementById("result-rent"),
+  resultFine: document.getElementById("result-fine"),
+  resultWater: document.getElementById("result-water"),
+  resultEnergy: document.getElementById("result-energy"),
+  resultCondominium: document.getElementById("result-condominium"),
+  resultIptu: document.getElementById("result-iptu"),
+  resultSpu: document.getElementById("result-spu"),
+};
+
+const controls = {
+  calculateFineBtn: document.getElementById("calculated-fine"),
+  terminatorFine: document.getElementById("terminator-fine"),
+  dayAllowance: document.getElementById("day-allowance"),
+  calculatedBtnRent: document.getElementById("calculated-rent"),
+  differenceDaysWaterBtn: document.getElementById("difference-days-water"),
+  differenceDaysEnergyBtn: document.getElementById("difference-days-energy"),
+  calculateCondominiumBtn: document.getElementById(
+    "difference-days-condominuim"
+  ),
+  calculateIptuBtn: document.getElementById("difference-days-iptu"),
+  calculateSpuBtn: document.getElementById("difference-days-spu"),
+  calculatedGeneral: document.getElementById("calculated-all"),
+};
 
 // máscara de moeda
 String.prototype.reverse = function () {
   return this.split("").reverse().join("");
+};
+
+const formatCurrency = (value) => {
+  return value.toLocaleString("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
 };
 
 function mascaraMoeda(campo, evento) {
@@ -62,379 +73,294 @@ function mascaraMoeda(campo, evento) {
 
 // Função de calculo de aluguel
 const calculateRentBill = () => {
-  const contractEndDate = contractEndDateInput.value;
-  const billRent = billRentInput.value;
-  const datePayRent = datePayRentInput.value;
-
-  //Convertendo a String da mascara para number
-  const billRentFormat = parseFloat(
-    billRent.replace(/\./g, "").replace(",", ".")
+  const contractEndDate = new Date(inputs.contractEndDate.value);
+  const billRent = parseFloat(
+    inputs.billRent.value.replace(/\./g, "").replace(",", ".")
   );
+  const datePayRent = new Date(inputs.datePayRent.value);
 
-  const data1 = new Date(contractEndDate);
-  const data2 = new Date(datePayRent);
-
-  const diffTime = Math.abs(data2 - data1);
+  const diffTime = Math.abs(datePayRent - contractEndDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  let allowance = dayAllowance.options[dayAllowance.selectedIndex].value;
-  let allowancetext = dayAllowance.options[dayAllowance.selectedIndex].text;
-  const proportionalValue = (billRentFormat / 30) * (diffDays - allowance);
+  let allowance = parseInt(controls.dayAllowance.value, 10);
+  let allowancetext =
+    controls.dayAllowance.options[controls.dayAllowance.selectedIndex].text;
+  const proportionalValue = (billRent / 30) * (diffDays - allowance);
 
-  let proportionalValueCurrency = proportionalValue.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let proportionalValueCurrency = formatCurrency(proportionalValue);
 
-  if (contractEndDate === "" || billRent === "" || datePayRent === "") {
-    resultRent.textContent = "Insira dados válidos";
-  } else if (data1 < data2) {
-    resultRent.textContent =
+  if (!contractEndDate || isNaN(billRent) || isNaN(datePayRent)) {
+    results.rent.textContent = "Insira dados válidos";
+  } else if (contractEndDate < datePayRent) {
+    results.rent.textContent =
       "Dados inválidos, verifique as datas de finalização de contrato e do último vencimento do aluguel.";
-  } else if (data2 < data1 && diffDays > 32) {
-    resultRent.textContent =
+  } else if (datePayRent < contractEndDate && diffDays > 32) {
+    results.rent.textContent =
       "Dados inválidos, verifique a data do último vencimento do aluguel";
   } else if (allowance <= 0) {
-    resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${proportionalValueCurrency}`;
+    results.rent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${proportionalValueCurrency}`;
   } else
-    resultRent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e teve um abono de ${allowancetext}, portanto terá que pagar o proporcional de ${proportionalValueCurrency}`;
+    results.rent.textContent = `O inquilino usufluiu do imóvel por ${diffDays} dias desde o último vencimento e teve um abono de ${allowancetext}, portanto terá que pagar o proporcional de ${proportionalValueCurrency}`;
 };
-calculatedBtnRent.addEventListener("click", calculateRentBill);
+controls.calculatedBtnRent.addEventListener("click", calculateRentBill);
 
 const calculateFineTerminator = () => {
-  const contractEndDate = contractEndDateInput.value;
-  const startContract = startContractInput.value;
-  const billRent = billRentInput.value;
+  const contractEndDate = new Date(inputs.contractEndDate.value);
+  const startContract = new Date(inputs.startContract.value);
+  const billRent = parseFloat(
+    inputs.billRent.value.replace(/\./g, "").replace(",", ".")
+  );
   const terminatorFineValue =
-    terminatorFine.options[terminatorFine.selectedIndex].value;
+    controls.terminatorFine.options[controls.terminatorFine.selectedIndex]
+      .value;
   const terminatorFineText =
-    terminatorFine.options[terminatorFine.selectedIndex].text;
+    controls.terminatorFine.options[controls.terminatorFine.selectedIndex].text;
 
-  const data1 = new Date(contractEndDate);
-  const data2 = new Date(startContract);
-
-  const diffTime = Math.abs(data2 - data1);
+  const diffTime = Math.abs(startContract - contractEndDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
 
   // Definindo os dias de não uso
   const nonUseDays = terminatorFineValue - diffDays;
 
-  //Convertendo a String da mascara para number
-  const billRentFormat = parseFloat(
-    billRent.replace(/\./g, "").replace(",", ".")
-  );
-
   // Calculando a multa rescisória
-  const totalFineTerminator =
-    (3 * billRentFormat * nonUseDays) / terminatorFineValue;
+  const totalFineTerminator = (3 * billRent * nonUseDays) / terminatorFineValue;
 
-  let fineTerminatorCurrency = totalFineTerminator.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let fineTerminatorCurrency = formatCurrency(totalFineTerminator);
 
-  if (contractEndDate === "" || startContract === "" || billRent === "") {
-    resultFine.textContent = "Insira todos os dados válidos!";
+  if (!contractEndDate || !startContract || isNaN(billRent)) {
+    results.resultFine.textContent = "Insira todos os dados válidos!";
   } else if (diffDays >= terminatorFineValue) {
-    resultFine.textContent = "O contrato não possui multa rescisória";
+    results.resultFine.textContent = "O contrato não possui multa rescisória";
   } else {
-    resultFine.textContent = `O inquilino utilizou ${diffDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${fineTerminatorCurrency} em seu boleto final`;
+    results.resultFine.textContent = `O inquilino utilizou ${diffDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${fineTerminatorCurrency} em seu boleto final`;
   }
 };
-calculateFineBtn.addEventListener("click", calculateFineTerminator);
+controls.calculateFineBtn.addEventListener("click", calculateFineTerminator);
 
 // Função Cálculo de Água
 const calculateWater = () => {
   //manipulando os inputs
-  const waterReadingDate = waterReadingDateInput.value;
-  const waterBillValue = waterBillValueInput.value;
-  const contractEndDate = contractEndDateInput.value;
-
-  //Convertendo a String da mascara para number
-  const billWaterFormat = parseFloat(
-    waterBillValue.replace(/\./g, "").replace(",", ".")
+  const waterReadingDate = new Date(inputs.waterReadingDate.value);
+  const waterBillValue = parseFloat(
+    inputs.waterBillValue.value.replace(/\./g, "").replace(",", ".")
   );
+  const contractEndDate = new Date(inputs.contractEndDate.value);
 
-  //convertendo as datas para objetos
-  const data1 = new Date(contractEndDate);
-  const data2 = new Date(waterReadingDate);
-
-  const diffTime = Math.abs(data2 - data1);
+  // Calculando a diferença de dias
+  const diffTime = Math.abs(waterReadingDate - contractEndDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
   // Calculando o valor a ser ressarcido de água
-  const valueWater = (billWaterFormat / 30) * diffDays;
+  const valueWater = (waterBillValue / 30) * diffDays;
 
-  let valueWaterCurrency = valueWater.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let valueWaterCurrency = formatCurrency(valueWater);
 
-  if (
-    contractEndDate === "" ||
-    waterReadingDate === "" ||
-    waterBillValue === ""
-  ) {
-    resultWater.textContent = "Insira Dados válidos";
-  } else if (data2 > data1) {
-    resultWater.textContent = "Data de leitura inválida";
-  } else if (data2 < data1 && diffDays > 34) {
-    resultWater.textContent = "Data de medição muito antiga";
+  if (!contractEndDate || !waterReadingDate || isNaN(waterBillValue)) {
+    results.resultWater.textContent = "Insira todos os dados válidos";
+  } else if (waterReadingDate > contractEndDate) {
+    results.resultWater.textContent = "Data de leitura inválida";
+  } else if (waterReadingDate < contractEndDate && diffDays > 31) {
+    results.resultWater.textContent =
+      "Data de leitura muito antiga, verifique a ultima medição!";
   } else
-    resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após a última leitura e o seu proporcional é ${valueWaterCurrency}`;
+    results.resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após a última leitura e o seu proporcional é ${valueWaterCurrency}`;
 };
 
-differenceDaysWaterBtn.addEventListener("click", calculateWater);
+controls.differenceDaysWaterBtn.addEventListener("click", calculateWater);
 
 // Função de Cálculo de Energia
 const calculateEnergy = () => {
   // manipulando os inputs
-  const energyReadingDate = energyReadingDateInput.value;
-  const energyBillValue = energyBillValueInput.value;
-  const contractEndDate = contractEndDateInput.value;
-
-  //Convertendo a String da mascara para number
-  const billEnergyFormat = parseFloat(
-    energyBillValue.replace(/\./g, "").replace(",", ".")
+  const energyBillValue = parseFloat(
+    inputs.energyBillValue.value.replace(/\./g, "").replace(",", ".")
   );
-
-  // convertendo as datas para objetos
-  const data1 = new Date(contractEndDate);
-  const data2 = new Date(energyReadingDate);
+  const energyReadingDate = new Date(inputs.energyReadingDate.value);
+  const contractEndDate = new Date(inputs.contractEndDate.value);
 
   // Calculando a diferença de datas
-  const diffTime = Math.abs(data2 - data1);
+  const diffTime = Math.abs(energyReadingDate - contractEndDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  const valueEnergy = (billEnergyFormat / 30) * diffDays;
+  const valueEnergy = (energyBillValue / 30) * diffDays;
 
-  let valueEnergyCurrency = valueEnergy.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let valueEnergyCurrency = formatCurrency(valueEnergy);
+
   // Definindo um validador para cada data de vencimento específico
-  if (
-    contractEndDate === "" ||
-    energyReadingDate === "" ||
-    energyBillValue === ""
-  ) {
-    resultEnergy.textContent = "Insira dados válidos";
-  } else if (data2 > data1) {
-    resultEnergy.textContent = "Data de leitura inválida";
-  } else if (data2 < data1 && diffDays > 34) {
-    resultEnergy.textContent = "Data de medição muito antiga";
+  if (!contractEndDate || !energyReadingDate || isNaN(energyBillValue)) {
+    results.resultEnergy.textContent = "Insira todos os dados válidos";
+  } else if (energyReadingDate > contractEndDate) {
+    results.resultEnergy.textContent = "Data de leitura inválida";
+  } else if (energyReadingDate < contractEndDate && diffDays > 31) {
+    results.resultEnergy.textContent =
+      "Data de leitura muito antiga, verifique a ultima medição";
   } else
-    resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
+    results.resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
 };
-differenceDaysEnergyBtn.addEventListener("click", calculateEnergy);
+controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergy);
 
 // Função de Cálculo do condomínio
 const calculateCondominium = () => {
   // Manipulando os inputs
-  const condominiumBillValue = condominiumBillValueInput.value;
-  const condominiumPayment = condominiumPaymentInput.value;
-  const contractEndDate = contractEndDateInput.value;
-
-  //Convertendo a String da mascara para number
-  const condBillFormat = parseFloat(
-    condominiumBillValue.replace(/\./g, "").replace(",", ".")
+  const condBillValue = parseFloat(
+    inputs.condominiumBillValue.value.replace(/\./g, "").replace(",", ".")
   );
-  const condPaymentFormat = parseFloat(
-    condominiumPayment.replace(/\./g, "").replace(",", ".")
+  const condPayment = parseFloat(
+    inputs.condominiumPayment.value.replace(/\./g, "").replace(",", ".")
   );
+  const contractEndDate = new Date(inputs.contractEndDate.value);
 
   // Obtendo o primeiro dia do mês atual
   const date = new Date();
   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
-  // convertendo as datas para objetos
-  const data1 = new Date(contractEndDate);
-  const data2 = new Date(firstDay);
-
   // Calculando a diferença de datas
-  const diffTime = Math.abs(data2 - data1);
+  const diffTime = Math.abs(firstDay - contractEndDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
 
   // Calculando
-  const valueCondominium = (condBillFormat / 30) * diffDays;
-  const totalCondominium = valueCondominium - condPaymentFormat;
-
-  let valueCondCurrency = valueCondominium.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  const valueCondominium = (condBillValue / 30) * diffDays;
+  const totalCondominium = valueCondominium - condPayment;
 
   // Convertendo para a moeda local
-  let totalCondominiumCurrency = totalCondominium.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let valueCondCurrency = formatCurrency(valueCondominium);
+  let totalCondominiumCurrency = formatCurrency(totalCondominium);
 
   // mudando o sinal do valor atribuído na variável
   let convertValue = Math.abs(totalCondominium);
-
-  let convertValueCurrency = convertValue.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let convertValueCurrency = formatCurrency(convertValue);
 
   // definindo uma tolerância para evitar problemas com o ponto flotuante.
   const tolerance = 0.01;
 
-  if (condominiumBillValue === "" || contractEndDate === "") {
-    resultCondominium.textContent = "Insira dados válidos";
-  } else if (condominiumPayment === "" || condominiumPayment === 0) {
-    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio sem pagar e tem uma proporcionalidade de ${valueCondCurrency} a pagar! `;
+  if (isNaN(condBillValue) || !contractEndDate) {
+    results.resultCondominium.textContent = "Insira dados válidos";
+  } else if (isNaN(condPayment) || condPayment === 0) {
+    results.resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio sem pagar e tem uma proporcionalidade de ${valueCondCurrency} a pagar! `;
   } else if (Math.abs(totalCondominium) < tolerance) {
-    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias de condomínio e efetuou o pagamento exato de sua proporcionalidade!`;
+    results.resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias de condomínio e efetuou o pagamento exato de sua proporcionalidade!`;
   } else if (totalCondominium < 0) {
-    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio e efetuou pagamento, então ele terá ${convertValueCurrency} a ser ressarcido`;
+    results.resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio e efetuou pagamento, então ele terá ${convertValueCurrency} a ser ressarcido`;
   } else
-    resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio e efetuou o pagamento, porém tem uma proporcionalidade de ${totalCondominiumCurrency} a pagar!`;
+    results.resultCondominium.textContent = `O inquilino utilizou ${diffDays} dias do condomínio e efetuou o pagamento, porém tem uma proporcionalidade de ${totalCondominiumCurrency} a pagar!`;
 };
-calculateCondominiumBtn.addEventListener("click", calculateCondominium);
+controls.calculateCondominiumBtn.addEventListener(
+  "click",
+  calculateCondominium
+);
 
 // Função de Cálculo IPTU
 const calculateIPTU = () => {
-  const iptuBillValue = iptuBillValueInput.value;
-  const iptuPayment = iptuPaymentInput.value;
-  const contractEndDate = contractEndDateInput.value;
-  const startContract = startContractInput.value;
-
-  //Convertendo a String da mascara para number
-  let iptuBillFormated = parseFloat(
-    iptuBillValue.replace(/\./g, "").replace(",", ".")
+  const iptuBillValue = parseFloat(
+    inputs.iptuBillValue.value.replace(/\./g, "").replace(",", ".")
   );
+  const iptuPayment = parseFloat(
+    inputs.iptuPayment.value.replace(/\./g, "").replace(",", ".")
+  );
+  const contractEndDate = new Date(inputs.contractEndDate.value);
+  const startContract = new Date(inputs.startContract.value);
 
   // Corrigindo o bug da mascara caso seja imputado um valor vazio
   let iptuPaymentFormat;
-  if (iptuPayment === "") {
+  if (isNaN(iptuPayment)) {
     iptuPaymentFormat = 0;
-  } else
-    iptuPaymentFormat = parseFloat(
-      iptuPayment.replace(/\./g, "").replace(",", ".")
-    );
+  } else iptuPaymentFormat = iptuPayment;
 
   // Obtendo a data atual
   const currentYear = new Date().getFullYear();
   const currentTime = new Date(`January 01 ${currentYear}`);
 
   // Validando se o contrato iniciou antes ou depois do ano vigente para o calculo de proporcionalidade de IPTU
-  const data1 = new Date(contractEndDate);
-  const data2 = new Date(currentTime);
-  const data3 = new Date(startContract);
-
   let diffTimeIptu;
   let diffDaysIptu;
-  if (data2 < data3) {
-    diffTimeIptu = Math.abs(data3 - data1);
+  if (currentTime < startContract) {
+    diffTimeIptu = Math.abs(startContract - contractEndDate);
     diffDaysIptu = Math.ceil(diffTimeIptu / (1000 * 60 * 60 * 24) + 1);
-  } else if (data2 > data3) {
-    diffTimeIptu = Math.abs(data2 - data1);
+  } else if (currentTime > startContract) {
+    diffTimeIptu = Math.abs(currentTime - contractEndDate);
     diffDaysIptu = Math.ceil(diffTimeIptu / (1000 * 60 * 60 * 24) + 1);
   } else {
     ("verificar");
   }
 
-  const valueIptu = (iptuBillFormated / 365) * diffDaysIptu;
+  const valueIptu = (iptuBillValue / 365) * diffDaysIptu;
   const totalIptu = valueIptu - iptuPaymentFormat;
 
-  let IptuCurrency = valueIptu.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let IptuCurrency = formatCurrency(valueIptu);
 
   let positiveValue = Math.abs(totalIptu);
 
-  let IptuValueCurrency = positiveValue.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let IptuValueCurrency = formatCurrency(positiveValue);
 
   // definindo uma tolerância para evitar problemas com o ponto flotuante.
   const tolerance = 0.01;
 
-  if (contractEndDate === "" || iptuBillValue === "") {
-    resultIptu.textContent = "Insira dados válidos";
-  } else if (iptuPayment == "") {
-    resultIptu.textContent = `O inquilino não efetuou nenhum pagamento referente ao ano de ${currentYear}, utilizou ${diffDaysIptu} dias e terá uma proporcionalide de ${IptuValueCurrency} a pagar!`;
+  if (!contractEndDate || isNaN(iptuBillValue)) {
+    results.resultIptu.textContent = "Insira dados válidos.";
+  } else if (isNaN(iptuPayment)) {
+    results.resultIptu.textContent = `O inquilino não efetuou nenhum pagamento referente ao ano de ${currentYear}, utilizou ${diffDaysIptu} dias e terá uma proporcionalide de ${IptuValueCurrency} a pagar.`;
   } else if (Math.abs(totalIptu) < tolerance) {
-    resultIptu.textContent = `O inquilino utilizou ${diffDaysIptu} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento exato de sua proporcionalidade`;
+    results.resultIptu.textContent = `O inquilino utilizou ${diffDaysIptu} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento exato de sua proporcionalidade.`;
   } else if (totalIptu < 0) {
-    resultIptu.textContent = `O inquilino utilizou ${diffDaysIptu} dias do IPTU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${IptuValueCurrency} a ser ressarcido`;
+    results.resultIptu.textContent = `O inquilino utilizou ${diffDaysIptu} dias do IPTU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${IptuValueCurrency} a ser ressarcido.`;
   } else
-    resultIptu.textContent = `O inquilino utilizou ${diffDaysIptu} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${IptuValueCurrency} a pagar!`;
+    results.resultIptu.textContent = `O inquilino utilizou ${diffDaysIptu} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${IptuValueCurrency} a pagar.`;
 };
-calculateIptuBtn.addEventListener("click", calculateIPTU);
+controls.calculateIptuBtn.addEventListener("click", calculateIPTU);
 
 // Função de Cálculo SPU
 const calculateSPU = () => {
-  const spuBillValue = spuBillValueInput.value;
-  const spuPayment = spuPaymentInput.value;
-  const contractEndDate = contractEndDateInput.value;
-  const startContract = startContractInput.value;
-
-  //Convertendo a String da mascara para number
-  let SpuBillFormated = parseFloat(
-    spuBillValue.replace(/\./g, "").replace(",", ".")
+  const spuBillValue = parseFloat(
+    inputs.spuBillValue.value.replace(/\./g, "").replace(",", ".")
   );
+  const spuPayment = parseFloat(
+    inputs.spuPayment.value.replace(/\./g, "").replace(",", ".")
+  );
+  const contractEndDate = new Date(inputs.contractEndDate.value);
+  const startContract = new Date(inputs.startContract.value);
 
   // Corrigindo o bug da mascara caso seja imputado um valor vazio
   let spuPaymentFormat;
-  if (spuPayment === "") {
+  if (isNaN(spuPayment)) {
     spuPaymentFormat = 0;
-  } else
-    spuPaymentFormat = parseFloat(
-      spuPayment.replace(/\./g, "").replace(",", ".")
-    );
+  } else spuPaymentFormat = spuPayment;
 
   // Obtendo a data atual
   const currentYear = new Date().getFullYear();
   const currentTime = new Date(`January 01 ${currentYear}`);
 
   // Validando se o contrato iniciou antes ou depois do ano vigente para o calculo de proporcionalidade de SPU
-  const data1 = new Date(contractEndDate);
-  const data2 = new Date(currentTime);
-  const data3 = new Date(startContract);
-
   let diffTimeSpu;
   let diffDaysSpu;
-  if (data2 < data3) {
-    diffTimeSpu = Math.abs(data3 - data1);
+  if (currentTime < startContract) {
+    diffTimeSpu = Math.abs(startContract - contractEndDate);
     diffDaysSpu = Math.ceil(diffTimeSpu / (1000 * 60 * 60 * 24) + 1);
-  } else if (data2 > data3) {
-    diffTimeSpu = Math.abs(data2 - data1);
+  } else if (currentTime > startContract) {
+    diffTimeSpu = Math.abs(currentTime - contractEndDate);
     diffDaysSpu = Math.ceil(diffTimeSpu / (1000 * 60 * 60 * 24) + 1);
   } else {
     ("verificar");
   }
 
-  const valueSpu = (SpuBillFormated / 365) * diffDaysSpu;
+  const valueSpu = (spuBillValue / 365) * diffDaysSpu;
   const totalSpu = valueSpu - spuPaymentFormat;
 
-  let SpuCurrency = valueSpu.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let SpuCurrency = formatCurrency(valueSpu);
 
   let positiveValue = Math.abs(totalSpu);
 
-  let SpuValueCurrency = positiveValue.toLocaleString("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  });
+  let SpuValueCurrency = formatCurrency(positiveValue);
 
   // definindo uma tolerância para evitar problemas com o ponto flotuante.
   const tolerance = 0.01;
 
-  if (contractEndDate === "" || spuBillValue === "") {
-    resultSpu.textContent = "Insira dados válidos";
-  } else if (spuPayment == "") {
-    resultSpu.textContent = `O inquilino não efetuou nenhum pagamento referente ao ano de ${currentYear}, utilizou ${diffDaysSpu} dias e terá uma proporcionalide de ${SpuValueCurrency} a pagar!`;
+  if (!contractEndDate || isNaN(spuBillValue)) {
+    results.resultSpu.textContent = "Insira dados válidos";
+  } else if (isNaN(spuPayment)) {
+    results.resultSpu.textContent = `O inquilino não efetuou nenhum pagamento referente ao ano de ${currentYear}, utilizou ${diffDaysSpu} dias e terá uma proporcionalide de ${SpuValueCurrency} a pagar!`;
   } else if (Math.abs(totalSpu) < tolerance) {
-    resultSpu.textContent = `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento exato de sua proporcionalidade`;
+    results.resultSpu.textContent = `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento exato de sua proporcionalidade`;
   } else if (totalSpu < 0) {
-    resultSpu.textContent = `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${SpuValueCurrency} a ser ressarcido`;
+    results.resultSpu.textContent = `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${SpuValueCurrency} a ser ressarcido`;
   } else
-    resultSpu.textContent = `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${SpuValueCurrency} a pagar!`;
+    results.resultSpu.textContent = `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${SpuValueCurrency} a pagar!`;
 };
-calculateSpuBtn.addEventListener("click", calculateSPU);
+controls.calculateSpuBtn.addEventListener("click", calculateSPU);
