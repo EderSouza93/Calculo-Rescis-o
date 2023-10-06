@@ -80,7 +80,7 @@ const calculateRentBill = () => {
   const datePayRent = new Date(inputs.datePayRent.value);
 
   const diffTime = Math.abs(datePayRent - contractEndDate);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
 
   let allowance = parseInt(controls.dayAllowance.value, 10);
   let allowancetext =
