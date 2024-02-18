@@ -33,6 +33,7 @@ const controls = {
   calculatedBtnRent: document.getElementById("calculated-rent"),
   differenceDaysWaterBtn: document.getElementById("difference-days-water"),
   differenceDaysEnergyBtn: document.getElementById("difference-days-energy"),
+  differenceDaysEnergyBtn: document.getElementById("difference-kWh-energy"),
   calculateCondominiumBtn: document.getElementById(
     "difference-days-condominuim"
   ),
@@ -70,6 +71,17 @@ function mascaraMoeda(campo, evento) {
   }
   campo.value = resultado.reverse();
 }
+
+// máscara da taxa de energia 
+/*const mascaraTaxa = (input, event) => {
+  let valor = input.value.replace(/\D/g, '');
+  valor = valor.padStart(7, '0');
+  let valorFormatado = valor.slice(0, -6).replace(/^0+/,'');
+  if (valorFormatado === '') {
+    valorFormatado = '0';
+  }
+  input.value = valorFormatado + ',' + valor.slice(-6);
+};*/
 
 // Função de calculo de aluguel
 const calculateRentBill = () => {

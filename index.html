@@ -124,10 +124,10 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4" id="energy">
+          <div class="col-md-4" id="energyForDay">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title">Fatura de Energia</h5>
+                <h5 class="card-title">Calculo Energia por dia</h5>
                 <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
                 <label for="form-control">Data da ultima leitura</label>
                 <input class="form-control" type="date" id="energy-reading-date">
@@ -137,6 +137,28 @@
                 </div>
                 <div class="col-sm-4 col-md-6">
                   <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" id="energyForKWh">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Calculo Energia por kWh</h5>
+                <input class="form-control" type="text" size="12" onkeyup="mascaraTaxa(this, event)" placeholder="Leitura da ultima fatura" id="energy-bill-value">
+                <input class="form-control" type="text" size="12" onkeyup="mascaraTaxa(this, event)" placeholder="Leitura da ultima vistoria" id="energy-bill-value">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Tipo de Fornecimento</option>
+                  <option value= 30>Monofásico</option>
+                  <option value= 50>Bifásico</option>
+                  <option value= 100>Trifásico</option>
+                </select>
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+                  <div class="card-header">Proporcionalidade</div>
+                  <div class="card-body" style="min-height: 3rem;" id="result-energy"> Em desenvolvimento </div>
+                </div>
+                <div class="col-sm-4 col-md-6">
+                  <button type="button" class="btn btn-outline-primary" id="difference-kWh-energy">Calcular</button>
                 </div>
               </div>
             </div>
