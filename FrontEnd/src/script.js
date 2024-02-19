@@ -8,6 +8,8 @@ const inputs = {
   waterReadingDate: document.getElementById("water-reading-date"),
   energyBillValue: document.getElementById("energy-bill-value"),
   energyReadingDate: document.getElementById("energy-reading-date"),
+  energyReaderLastBill: document.getElementById("read-last-bill"),
+  energyReaderInspection: document.getElementById("read-last-inspection"),
   condominiumBillValue: document.getElementById("condominium-bill-value"),
   condominiumPayment: document.getElementById("condominium-payment"),
   iptuBillValue: document.getElementById("iptu-bill-value"),
@@ -33,7 +35,7 @@ const controls = {
   calculatedBtnRent: document.getElementById("calculated-rent"),
   differenceDaysWaterBtn: document.getElementById("difference-days-water"),
   differenceDaysEnergyBtn: document.getElementById("difference-days-energy"),
-  differenceDaysEnergyBtn: document.getElementById("difference-kWh-energy"),
+  differenceKWhEnergyBtn: document.getElementById("difference-kWh-energy"),
   calculateCondominiumBtn: document.getElementById(
     "difference-days-condominuim"
   ),
@@ -41,6 +43,12 @@ const controls = {
   calculateSpuBtn: document.getElementById("difference-days-spu"),
   calculatedGeneral: document.getElementById("calculated-all"),
 };
+
+const modalElements = {
+  modal: document.getElementById("exampleModalCenter"), 
+  closeBtn: document.getElementById("#exampleModalCente .close"),
+  SaveChangesBtn: document.getElementById("#exampleModalCente .btn btn-primary")
+}
 
 // máscara de moeda
 String.prototype.reverse = function () {
@@ -82,6 +90,20 @@ function mascaraMoeda(campo, evento) {
   }
   input.value = valorFormatado + ',' + valor.slice(-6);
 };*/
+
+// Modal de atualização de Taxas
+modalElements.closeBtn.addEventListener('click', function() {
+  closeModal();
+});
+
+modalElements.SaveChangesBtn.addEventListener('click', function() {
+  saveChanges();
+});
+
+// Função para fechar o Modal
+function closeModal() {
+  $(modal).modal('hide');
+};
 
 // Função de calculo de aluguel
 const calculateRentBill = () => {
@@ -179,7 +201,7 @@ const calculateWater = () => {
 
 controls.differenceDaysWaterBtn.addEventListener("click", calculateWater);
 
-// Função de Cálculo de Energia
+// Função de Cálculo de Energia por dias
 const calculateEnergy = () => {
   // manipulando os inputs
   const energyBillValue = parseFloat(
@@ -208,6 +230,27 @@ const calculateEnergy = () => {
     results.resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
 };
 controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergy);
+
+// Função de Cálculo de Energia por dias
+const calculateEnergyKwh = () => {
+  // manipulando os inputs
+  
+
+  // Calculando a diferença de datas
+
+
+  // Definindo um validador para cada data de vencimento específico
+  if (!contractEndDate || !energyReadingDate || isNaN(energyBillValue)) {
+    results.resultEnergy.textContent = "Insira todos os dados válidos";
+  } else if (energyReadingDate > contractEndDate) {
+    results.resultEnergy.textContent = "Data de leitura inválida";
+  } else if (energyReadingDate < contractEndDate && diffDays > 31) {
+    results.resultEnergy.textContent =
+      "Data de leitura muito antiga, verifique a ultima medição";
+  } else
+    results.resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
+};
+controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergyKwh);
 
 // Função de Cálculo do condomínio
 const calculateCondominium = () => {
