@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="shortcut icon" href="/img/faviconWhite.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/Calculo-Rescis-o/img/faviconWhite.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/Calculo-Rescis-o/css/style.css">
     <title>Levantamento de contas</title>
   </head>
   <body>
@@ -13,7 +13,7 @@
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" target="_blank" href="https://www.cohabpremium.com.br/">
-            <img src="/img/Ícone Azul.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+            <img src="/Calculo-Rescis-o/img/Ícone Azul.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
             Encontro de Contas
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,26 +40,27 @@
             </ul>
           </div>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter" id="btn-open-modal">
-            Atualizar Taxas
-          </button>
+          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#JanelaModal">
+          Atualizar Taxas
+        </button>
 
           <!-- Modal -->
-          <div class="modal fade" id="exampleModalCenterTitle" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal" id="JanelaModal">
+            <div class="modal-dialog">
               <div class="modal-content">
+
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                  <h3 class="modal-title">Valores das Taxas</h3>
+                  <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
-                  ...
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni placeat animi eum dicta, vel, numquam consectetur voluptas expedita cumque molestiae nostrum quibusdam atque saepe aperiam qui, accusamus officiis libero autem?
                 </div>
+
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-primary">Salvar Mudanças</button>
                 </div>
               </div>
             </div>
@@ -286,6 +287,6 @@
 
       new bootstrap.Popover(document.getElementById('popoverButton'))
     </script>
-    <script src="/src/script.js"></script>
+    <script src="/Calculo-Rescis-o/src/script.js"></script>
   </body>
 </html>

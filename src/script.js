@@ -91,20 +91,6 @@ function mascaraMoeda(campo, evento) {
   input.value = valorFormatado + ',' + valor.slice(-6);
 };*/
 
-// Modal de atualização de Taxas
-modalElements.closeBtn.addEventListener('click', function() {
-  closeModal();
-});
-
-modalElements.SaveChangesBtn.addEventListener('click', function() {
-  saveChanges();
-});
-
-// Função para fechar o Modal
-function closeModal() {
-  $(modal).modal('hide');
-};
-
 // Função de calculo de aluguel
 const calculateRentBill = () => {
   const contractEndDate = new Date(inputs.contractEndDate.value);
