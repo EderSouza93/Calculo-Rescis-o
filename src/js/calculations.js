@@ -4,7 +4,6 @@ import UtilityBill from "./utility-bill.js"
 export const calculateRentBill = (contractEndDate, billRent, datePayRent, allowance) => {
     const contract = new Contract(null, contractEndDate, billRent);
     const proportionalValue = contract.getProportionalRent(datePayRent, allowance);
-
     return proportionalValue;
 }
 

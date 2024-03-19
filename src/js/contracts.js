@@ -30,6 +30,7 @@
     getFirstDay(){
         const date = new Date();
         const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        console.log(firstDay);
         return firstDay
     }
 };

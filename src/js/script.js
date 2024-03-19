@@ -50,7 +50,7 @@ const controls = {
 };
 
 const modalElements = {
-  modal: document.getElementById("exampleModalCenter"), 
+  modal: document.getElementById("exampleModalCenter"),
   closeBtn: document.getElementById("#exampleModalCente .close"),
   SaveChangesBtn: document.getElementById("#exampleModalCente .btn btn-primary")
 }
@@ -100,16 +100,15 @@ const calculateRentBillHandler = () => {
   const datePayRent = new Date(inputs.datePayRent.value);
   const allowance = validateAndSanitizeInput(controls.dayAllowance.value);
   const diffDays = contract.getDuration();
-  
-  const { error, proportionalValue } = calculateRentBill(contractEndDate, billRent, datePayRent, allowance);
 
-  if ( proportionalValue === undefined || isNaN(proportionalValue)) {
-    results.rent.textContent = `${error}`;
+  const proportionalValue = calculateRentBill(contractEndDate, billRent, datePayRent, allowance);
+  
+  if (proportionalValue === undefined || isNaN(proportionalValue)) {
+    results.rent.textContent = "Insira um numero válido";
   } else {
     results.rent.textContent = `O inquilino usufruiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(proportionalValue)}`;
   }
-
-  console.log(formatCurrency(proportionalValue))
+  console.log(diffDays)
   return (proportionalValue)
 };
 controls.calculatedBtnRent.addEventListener("click", calculateRentBillHandler);
