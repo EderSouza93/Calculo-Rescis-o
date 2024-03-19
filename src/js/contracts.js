@@ -1,4 +1,4 @@
-class Contract {
+ export class Contract {
     constructor(startDate, endDate, retAmount) {
         this.startDate = new Date(startDate);
         this.endDate = new Date(endDate);
@@ -26,6 +26,12 @@ class Contract {
         const totalFineTerminator = (3 * this.retAmount * nonUseDays) / terminalFineValue;
         return totalFineTerminator;
     };
+
+    getFirstDay(){
+        const date = new Date();
+        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        return firstDay
+    }
 };
 
 export default Contract;

@@ -1,5 +1,5 @@
-import { calculateRentBill, calculateFineTerminator, calculateWater, calculateEnergy, calculateEnergyKwh, calculateCondominium, calculateIPTU, calculateSPU } from "./calculations";
-import { Contract } from './contracts.js';
+import { calculateRentBill, calculateFineTerminator, calculateWater, calculateEnergy, calculateCondominium } from "./calculations.js";
+import { Contract } from "./contracts.js";
 import { validateAndSanitizeInput, formatCurrency } from './utils.js';
 
 
@@ -56,7 +56,7 @@ const modalElements = {
 }
 
 // máscara de moeda
-String.prototype.reverse = function () {
+/*String.prototype.reverse = function () {
   return this.split("").reverse().join("");
 };
 
@@ -93,22 +93,28 @@ function mascaraMoeda(campo, evento) {
 
 // Função de calculo de aluguel
 const calculateRentBillHandler = () => {
+  const contractStartDate = new Date(inputs.contractEndDate.value)
   const contractEndDate = new Date(inputs.contractEndDate.value);
   const billRent = validateAndSanitizeInput(inputs.billRent.value);
+  const contract = new Contract(contractStartDate, contractEndDate, billRent);
   const datePayRent = new Date(inputs.datePayRent.value);
   const allowance = validateAndSanitizeInput(controls.dayAllowance.value);
+  const diffDays = contract.getDuration();
   
   const { error, proportionalValue } = calculateRentBill(contractEndDate, billRent, datePayRent, allowance);
 
-  if (error) {
-    results.rent.textContent = error;
+  if ( proportionalValue === undefined || isNaN(proportionalValue)) {
+    results.rent.textContent = `${error}`;
   } else {
     results.rent.textContent = `O inquilino usufruiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(proportionalValue)}`;
   }
+
+  console.log(formatCurrency(proportionalValue))
+  return (proportionalValue)
 };
 controls.calculatedBtnRent.addEventListener("click", calculateRentBillHandler);
 
-const calculateFineTerminator = () => {
+const calculateFineTerminatorHandler = () => {
   const contractEndDate = new Date(inputs.contractEndDate.value);
   const startContract = new Date(inputs.startContract.value);
   const billRent = parseFloat(
@@ -139,10 +145,10 @@ const calculateFineTerminator = () => {
     results.resultFine.textContent = `O inquilino utilizou ${diffDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${fineTerminatorCurrency} em seu boleto final`;
   }
 };
-controls.calculateFineBtn.addEventListener("click", calculateFineTerminator);
+controls.calculateFineBtn.addEventListener("click", calculateFineTerminatorHandler);
 
 // Função Cálculo de Água
-const calculateWater = () => {
+const calculateWaterHandler = () => {
   //manipulando os inputs
   const waterReadingDate = new Date(inputs.waterReadingDate.value);
   const waterBillValue = parseFloat(
@@ -169,10 +175,10 @@ const calculateWater = () => {
     results.resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após a última leitura e o seu proporcional é ${valueWaterCurrency}`;
 };
 
-controls.differenceDaysWaterBtn.addEventListener("click", calculateWater);
+controls.differenceDaysWaterBtn.addEventListener("click", calculateWaterHandler);
 
 // Função de Cálculo de Energia por dias
-const calculateEnergy = () => {
+const calculateEnergyHandler = () => {
   // manipulando os inputs
   const energyBillValue = parseFloat(
     inputs.energyBillValue.value.replace(/\./g, "").replace(",", ".")
@@ -199,10 +205,10 @@ const calculateEnergy = () => {
   } else
     results.resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
 };
-controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergy);
+controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergyHandler);
 
 // Função de Cálculo de Energia por dias
-const calculateEnergyKwh = () => {
+/*const calculateEnergyKwhHandler = () => {
   // manipulando os inputs
   
 
@@ -220,10 +226,10 @@ const calculateEnergyKwh = () => {
   } else
     results.resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
 };
-controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergyKwh);
+controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergyKwhHandler);*/
 
 // Função de Cálculo do condomínio
-const calculateCondominium = () => {
+const calculateCondominiumHandler = () => {
   // Manipulando os inputs
   const condBillValue = parseFloat(
     inputs.condominiumBillValue.value.replace(/\./g, "").replace(",", ".")
@@ -269,11 +275,11 @@ const calculateCondominium = () => {
 };
 controls.calculateCondominiumBtn.addEventListener(
   "click",
-  calculateCondominium
+  calculateCondominiumHandler
 );
 
 // Função de Cálculo IPTU
-const calculateIPTU = () => {
+const calculateIPTUHandler = () => {
   const iptuBillValue = parseFloat(
     inputs.iptuBillValue.value.replace(/\./g, "").replace(",", ".")
   );
@@ -329,10 +335,10 @@ const calculateIPTU = () => {
   } else
     results.resultIptu.textContent = `O inquilino utilizou ${diffDaysIptu} dias do IPTU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${IptuValueCurrency} a pagar.`;
 };
-controls.calculateIptuBtn.addEventListener("click", calculateIPTU);
+controls.calculateIptuBtn.addEventListener("click", calculateIPTUHandler);
 
 // Função de Cálculo SPU
-const calculateSPU = () => {
+const calculateSPUHandler = () => {
   const spuBillValue = parseFloat(
     inputs.spuBillValue.value.replace(/\./g, "").replace(",", ".")
   );
@@ -388,4 +394,4 @@ const calculateSPU = () => {
   } else
     results.resultSpu.textContent = `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${SpuValueCurrency} a pagar!`;
 };
-controls.calculateSpuBtn.addEventListener("click", calculateSPU);
+controls.calculateSpuBtn.addEventListener("click", calculateSPUHandler);

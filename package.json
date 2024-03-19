@@ -1,0 +1,13 @@
+{
+  "name": "calculo-rescis-o",
+  "version": "1.2.0",
+  "description": "Projeto de calculo de boleto de finalização",
+  "main": "./src/js/script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eder Souza",
+  "license": "ISC",
+  "type":"module"
+
+}

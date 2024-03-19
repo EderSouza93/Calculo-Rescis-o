@@ -16,6 +16,9 @@ export const validateAndSanitizeInput = (input) => {
  * @returns {string} O valor formatado como uma string de moeda brasileira 
  */
 export const formatCurrency = (value) => {
+    if (value === undefined) {
+        return "Valor não definido"
+    }
     return value.toLocaleString("pt-br", {
         style: "currency",
         currency: "BRL",

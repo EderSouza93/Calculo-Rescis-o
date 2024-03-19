@@ -23,8 +23,8 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 
 ## Instalação e Uso
 
-1. Clone este repositório: `git clone https://github.com/seu-usuario/projeto-calculos-aluguel.git`
-2. Navegue até o diretório do projeto: `cd projeto-calculos-aluguel`
+1. Clone este repositório: `git clone https://github.com/EderSouza93/Calculo-Rescis-o.git`
+2. Navegue até o diretório do projeto: `cd CALCULO-RESCI-O`
 3. Abra o arquivo `index.html` em um navegador web.
 
 ## Contribuição
@@ -33,4 +33,4 @@ Contribuições são bem-vindas! Se você encontrar algum problema ou tiver suge
 
 ## Licença
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Este projeto está licenciado sob a [ISC](LICENSE).
