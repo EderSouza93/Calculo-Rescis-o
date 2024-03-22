@@ -1,17 +1,17 @@
  export class Contract {
-    constructor(startDate, endDate, retAmount) {
+    constructor(startDate, endDate, rentAmount) {
         this.startDate = new Date(startDate);
         this.endDate = new Date(endDate);
-        this.retAmount = parseFloat(retAmount);
+        this.rentAmount = parseFloat(rentAmount);
     };
 
     getDuration() {
         const diffTime = Math.abs(this.endDate - this.startDate);
-        return Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+        return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
     };
 
     getRentPerDay(){
-        return this.retAmount / 30;
+        return this.rentAmount / 30;
     };
 
     getProportionalRent(paymentDate, allowance = 0) {
@@ -23,16 +23,18 @@
 
     getFineTerminator(terminalFineValue) {
         const nonUseDays = terminalFineValue - this.getDuration();
-        const totalFineTerminator = (3 * this.retAmount * nonUseDays) / terminalFineValue;
+        const totalFineTerminator = (3 * this.rentAmount * nonUseDays) / terminalFineValue;
         return totalFineTerminator;
     };
 
-    getFirstDay(){
+
+    /*getFirstDay(){
         const date = new Date();
         const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
         console.log(firstDay);
         return firstDay
-    }
+    }*/
+  
 };
 
 export default Contract;

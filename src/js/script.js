@@ -1,4 +1,4 @@
-import { calculateRentBill, calculateFineTerminator, calculateWater, calculateEnergy, calculateCondominium } from "./calculations.js";
+import { calculateRentBill, calculateExtraRentDays, calculateFineTerminator, calculateWater, calculateEnergy, calculateCondominium } from "./calculations.js";
 import { Contract } from "./contracts.js";
 import { validateAndSanitizeInput, formatCurrency } from './utils.js';
 
@@ -7,7 +7,7 @@ import { validateAndSanitizeInput, formatCurrency } from './utils.js';
 const inputs = {
   startContract: document.getElementById("start-contract"),
   contractEndDate: document.getElementById("date-end"),
-  billRent: document.getElementById("rent-bill-value"),
+  rentAmount: document.getElementById("rent-bill-value"),
   datePayRent: document.getElementById("rent-payment-date"),
   waterBillValue: document.getElementById("water-bill-value"),
   waterReadingDate: document.getElementById("water-reading-date"),
@@ -95,21 +95,24 @@ function mascaraMoeda(campo, evento) {
 const calculateRentBillHandler = () => {
   const contractStartDate = new Date(inputs.contractEndDate.value)
   const contractEndDate = new Date(inputs.contractEndDate.value);
-  const billRent = validateAndSanitizeInput(inputs.billRent.value);
-  const contract = new Contract(contractStartDate, contractEndDate, billRent);
+  const rentAmount = validateAndSanitizeInput(inputs.rentAmount.value);
+  const contract = new Contract(contractStartDate, contractEndDate, rentAmount);
   const datePayRent = new Date(inputs.datePayRent.value);
   const allowance = validateAndSanitizeInput(controls.dayAllowance.value);
-  const diffDays = contract.getDuration();
+  const extraRentDays = calculateExtraRentDays(inputs.contractEndDate.value, inputs.datePayRent.value)
 
-  const proportionalValue = calculateRentBill(contractEndDate, billRent, datePayRent, allowance);
+
+  console.log(contract)
+
+  const proportionalValue = calculateRentBill(contractEndDate, rentAmount, datePayRent, allowance);
   
   if (proportionalValue === undefined || isNaN(proportionalValue)) {
     results.rent.textContent = "Insira um numero válido";
   } else {
-    results.rent.textContent = `O inquilino usufruiu do imóvel por ${diffDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(proportionalValue)}`;
+    results.rent.textContent = `O inquilino usufruiu do imóvel por ${extraRentDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(proportionalValue)}`;
   }
-  console.log(diffDays)
-  return (proportionalValue)
+  console.log(proportionalValue);
+  return (proportionalValue);
 };
 controls.calculatedBtnRent.addEventListener("click", calculateRentBillHandler);
 
