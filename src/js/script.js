@@ -1,10 +1,12 @@
 import { calculateRentBill, calculateExtraRentDays, calculateFineTerminator, calculateWater, calculateEnergy, calculateCondominium } from "./calculations.js";
 import { Contract } from "./contracts.js";
-import { validateAndSanitizeInput, formatCurrency } from './utils.js';
+import { validateAndSanitizeInput, formatCurrency, getDaysDifference } from './utils.js';
 
 
 // DOM variables
 const inputs = {
+  tenantName: document.getElementById("name"),
+  tenateCode: document.getElementById("contratct"),
   startContract: document.getElementById("start-contract"),
   contractEndDate: document.getElementById("date-end"),
   rentAmount: document.getElementById("rent-bill-value"),
@@ -93,58 +95,44 @@ function mascaraMoeda(campo, evento) {
 
 // Função de calculo de aluguel
 const calculateRentBillHandler = () => {
-  const contractStartDate = new Date(inputs.contractEndDate.value)
-  const contractEndDate = new Date(inputs.contractEndDate.value);
+  const tenantName = inputs.tenantName.value;
+  const tenantCode = inputs.tenateCode.value;
+  const startDate = new Date(inputs.startContract.value);
+  const endDate = new Date(inputs.contractEndDate.value);
   const rentAmount = validateAndSanitizeInput(inputs.rentAmount.value);
-  const contract = new Contract(contractStartDate, contractEndDate, rentAmount);
+  const contract = new Contract(startDate, endDate, rentAmount, tenantName, tenantCode);
   const datePayRent = new Date(inputs.datePayRent.value);
   const allowance = validateAndSanitizeInput(controls.dayAllowance.value);
   const extraRentDays = calculateExtraRentDays(inputs.contractEndDate.value, inputs.datePayRent.value)
 
-
-  console.log(contract)
-
-  const proportionalValue = calculateRentBill(contractEndDate, rentAmount, datePayRent, allowance);
+  const proportionalValue = calculateRentBill(endDate, rentAmount, datePayRent, allowance);
   
   if (proportionalValue === undefined || isNaN(proportionalValue)) {
     results.rent.textContent = "Insira um numero válido";
   } else {
     results.rent.textContent = `O inquilino usufruiu do imóvel por ${extraRentDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(proportionalValue)}`;
   }
-  console.log(proportionalValue);
+  
   return (proportionalValue);
 };
 controls.calculatedBtnRent.addEventListener("click", calculateRentBillHandler);
 
 const calculateFineTerminatorHandler = () => {
-  const contractEndDate = new Date(inputs.contractEndDate.value);
-  const startContract = new Date(inputs.startContract.value);
-  const billRent = parseFloat(
-    inputs.billRent.value.replace(/\./g, "").replace(",", ".")
-  );
-  const terminatorFineValue =
-    controls.terminatorFine.options[controls.terminatorFine.selectedIndex]
-      .value;
-  const terminatorFineText =
-    controls.terminatorFine.options[controls.terminatorFine.selectedIndex].text;
+  const endDate = new Date(inputs.contractEndDate.value);
+  const startDate = new Date(inputs.startContract.value);
+  const rentAmount = validateAndSanitizeInput(inputs.rentAmount.value);
+  const terminatorFineValue = validateAndSanitizeInput(controls.terminatorFine.selectedIndex.value);
+  const terminatorFineText = controls.terminatorFine.options[controls.terminatorFine.selectedIndex].text; 
+  const extraRentDays = calculateExtraRentDays(endDate, startDate)
 
-  const diffTime = Math.abs(startContract - contractEndDate);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
+  const { error, totalFineTerminator } = calculateFineTerminator(endDate, startDate, rentAmount, terminatorFineValue);
 
-  // Definindo os dias de não uso
-  const nonUseDays = terminatorFineValue - diffDays;
+  console.log(extraRentDays)
 
-  // Calculando a multa rescisória
-  const totalFineTerminator = (3 * billRent * nonUseDays) / terminatorFineValue;
-
-  let fineTerminatorCurrency = formatCurrency(totalFineTerminator);
-
-  if (!contractEndDate || !startContract || isNaN(billRent)) {
-    results.resultFine.textContent = "Insira todos os dados válidos!";
-  } else if (diffDays >= terminatorFineValue) {
-    results.resultFine.textContent = "O contrato não possui multa rescisória";
+  if (error) {
+    results.resultFine.textContent = error;
   } else {
-    results.resultFine.textContent = `O inquilino utilizou ${diffDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${fineTerminatorCurrency} em seu boleto final`;
+    results.resultFine.textContent = `O inquilino utilizou ${extraRentDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${formatCurrency(totalFineTerminator)} em seu boleto final`;
   }
 };
 controls.calculateFineBtn.addEventListener("click", calculateFineTerminatorHandler);

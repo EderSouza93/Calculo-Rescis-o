@@ -37,6 +37,17 @@ export const getDaysDifference = (startDate, endDate) => {
 };
 
 /**
+ * Calcula a diferença em dias entre duas datas.
+ * @param {Date} startDate - A data inicial.
+ * @param {Date} endDate - A data final.
+ * @returns {number} A diferença em dias entre as duas datas. 
+ */
+export const getDaysDifference2 = (startDate, endDate) => {
+    const diffTime = Math.abs(endDate - startDate);
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+};
+
+/**
  * Formata uma data no formato ISO (YYYY-MM-DD).
  * @param {Date} date - A data a ser formatada.
  * @returns {string} A data formatada no formato ISO.

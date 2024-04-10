@@ -1,8 +1,17 @@
  export class Contract {
-    constructor(startDate, endDate, rentAmount) {
+    constructor(startDate, endDate, rentAmount, tenantName, tenantCode ) {
         this.startDate = new Date(startDate);
         this.endDate = new Date(endDate);
         this.rentAmount = parseFloat(rentAmount);
+        this.tenantName = tenantName;
+        this.tenantCode = tenantCode;
+    };
+
+    getTenantData() {
+    return {
+        name: this.tenantName,
+        code: this.tenantCode
+    }
     };
 
     getDuration() {
@@ -24,9 +33,11 @@
     getFineTerminator(terminalFineValue) {
         const nonUseDays = terminalFineValue - this.getDuration();
         const totalFineTerminator = (3 * this.rentAmount * nonUseDays) / terminalFineValue;
+        console.log(nonUseDays)
         return totalFineTerminator;
     };
-
+    
+    
 
     /*getFirstDay(){
         const date = new Date();

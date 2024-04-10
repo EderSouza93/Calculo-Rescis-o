@@ -5,8 +5,6 @@ import { getDaysDifference } from "./utils.js";
 export const calculateRentBill = (contractEndDate, rentAmount, datePayRent, allowance) => {
     const contract = new Contract(null, contractEndDate, rentAmount);
     const proportionalValue = contract.getProportionalRent(datePayRent, allowance);
-    const test = contract.getDuration()
-    console.log(test)
     return proportionalValue;
 }
 
@@ -20,7 +18,9 @@ export const calculateExtraRentDays = (contractEndDate, lastPaymentDate) => {
 export const calculateFineTerminator = (contractEndDate, startContract, rentAmount, terminalFineValue) => {
     const contract = new Contract(startContract, contractEndDate, rentAmount);
     const totalFineTerminator = contract.getFineTerminator(terminalFineValue);
+    console.log(totalFineTerminator);
     return totalFineTerminator;
+    
 }
 
 export const calculateCondominium = (condBillValue, condominiumPayment, contractEndDate) => {
