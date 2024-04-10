@@ -121,13 +121,13 @@ const calculateFineTerminatorHandler = () => {
   const endDate = new Date(inputs.contractEndDate.value);
   const startDate = new Date(inputs.startContract.value);
   const rentAmount = validateAndSanitizeInput(inputs.rentAmount.value);
-  const terminatorFineValue = validateAndSanitizeInput(controls.terminatorFine.selectedIndex.value);
+  const terminatorFineValue = validateAndSanitizeInput(controls.terminatorFine.value);
   const terminatorFineText = controls.terminatorFine.options[controls.terminatorFine.selectedIndex].text; 
   const extraRentDays = calculateExtraRentDays(endDate, startDate)
 
-  const { error, totalFineTerminator } = calculateFineTerminator(endDate, startDate, rentAmount, terminatorFineValue);
+  const {error, totalFineTerminator} = calculateFineTerminator(endDate, startDate, rentAmount, terminatorFineValue);
 
-  console.log(extraRentDays)
+  console.log(totalFineTerminator)
 
   if (error) {
     results.resultFine.textContent = error;

@@ -33,7 +33,6 @@
     getFineTerminator(terminalFineValue) {
         const nonUseDays = terminalFineValue - this.getDuration();
         const totalFineTerminator = (3 * this.rentAmount * nonUseDays) / terminalFineValue;
-        console.log(nonUseDays)
         return totalFineTerminator;
     };
     
