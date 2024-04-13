@@ -19,7 +19,7 @@ export const calculateFineTerminator = (contractEndDate, startContract, rentAmou
     const contract = new Contract(startContract, contractEndDate, rentAmount);
     const totalFineTerminator = contract.getFineTerminator(terminalFineValue);
     console.log(totalFineTerminator);
-    return totalFineTerminator;
+    return { error: null, totalFineTerminator };
     
 }
 
