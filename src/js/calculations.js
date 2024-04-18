@@ -18,7 +18,6 @@ export const calculateExtraRentDays = (contractEndDate, lastPaymentDate) => {
 export const calculateFineTerminator = (contractEndDate, startContract, rentAmount, terminalFineValue) => {
     const contract = new Contract(startContract, contractEndDate, rentAmount);
     const totalFineTerminator = contract.getFineTerminator(terminalFineValue);
-    console.log(totalFineTerminator);
     return { error: null, totalFineTerminator };
     
 }

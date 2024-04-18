@@ -108,7 +108,7 @@ const calculateRentBillHandler = () => {
   const proportionalValue = calculateRentBill(endDate, rentAmount, datePayRent, allowance);
   
   if (proportionalValue === undefined || isNaN(proportionalValue)) {
-    results.rent.textContent = "Insira um numero válido";
+    results.rent.textContent = "Insira dados válidos";
   } else {
     results.rent.textContent = `O inquilino usufruiu do imóvel por ${extraRentDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(proportionalValue)}`;
   }
@@ -127,10 +127,10 @@ const calculateFineTerminatorHandler = () => {
 
   const {error, totalFineTerminator} = calculateFineTerminator(endDate, startDate, rentAmount, terminatorFineValue);
 
-  console.log(totalFineTerminator)
-
-  if (error) {
-    results.resultFine.textContent = error;
+  if (isNaN(endDate.getTime()) || isNaN(startDate.getTime()) || !rentAmount) {
+    results.resultFine.textContent = "Insira todos os dados válidos!";
+  } else if (extraRentDays >= terminatorFineValue) {
+    results.resultFine.textContent = "O contrato não possui multa rescisória";
   } else {
     results.resultFine.textContent = `O inquilino utilizou ${extraRentDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${formatCurrency(totalFineTerminator)} em seu boleto final`;
   }
