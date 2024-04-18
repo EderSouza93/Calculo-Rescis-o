@@ -141,20 +141,12 @@ controls.calculateFineBtn.addEventListener("click", calculateFineTerminatorHandl
 const calculateWaterHandler = () => {
   //manipulando os inputs
   const waterReadingDate = new Date(inputs.waterReadingDate.value);
-  const waterBillValue = parseFloat(
-    inputs.waterBillValue.value.replace(/\./g, "").replace(",", ".")
-  );
+  const waterBill = validateAndSanitizeInput(inputs.waterBillValue.value)
   const contractEndDate = new Date(inputs.contractEndDate.value);
 
-  // Calculando a diferença de dias
-  const diffTime = Math.abs(waterReadingDate - contractEndDate);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
-  // Calculando o valor a ser ressarcido de água
-  const valueWater = (waterBillValue / 30) * diffDays;
+  const {error, proportionalValue} = calculateWater(contractEndDate, waterBill, waterReadingDate);
 
-  let valueWaterCurrency = formatCurrency(valueWater);
-
-  if (!contractEndDate || !waterReadingDate || isNaN(waterBillValue)) {
+  if (!contractEndDate || !waterReadingDate || isNaN(waterBill)) {
     results.resultWater.textContent = "Insira todos os dados válidos";
   } else if (waterReadingDate > contractEndDate) {
     results.resultWater.textContent = "Data de leitura inválida";
@@ -162,7 +154,7 @@ const calculateWaterHandler = () => {
     results.resultWater.textContent =
       "Data de leitura muito antiga, verifique a ultima medição!";
   } else
-    results.resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após a última leitura e o seu proporcional é ${valueWaterCurrency}`;
+    results.resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após a última leitura e o seu proporcional é ${proportionalValue}`;
 };
 
 controls.differenceDaysWaterBtn.addEventListener("click", calculateWaterHandler);

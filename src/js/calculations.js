@@ -33,6 +33,7 @@ export const calculateWater = (contractEndDate, waterBillValue, waterReadingDate
     const waterBill = new UtilityBill(waterBillValue, waterReadingDate, 30);
     const proportionalValue = waterBill.getProportionalBill(contractEndDate);
     // ... (restante da lógica de cálculo)
+    console.log(proportionalValue)
     return proportionalValue;
 };
 
