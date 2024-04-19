@@ -143,18 +143,20 @@ const calculateWaterHandler = () => {
   const waterReadingDate = new Date(inputs.waterReadingDate.value);
   const waterBill = validateAndSanitizeInput(inputs.waterBillValue.value)
   const contractEndDate = new Date(inputs.contractEndDate.value);
+  const daysUse = getDaysDifference(waterReadingDate, contractEndDate)
 
   const {error, proportionalValue} = calculateWater(contractEndDate, waterBill, waterReadingDate);
 
-  if (!contractEndDate || !waterReadingDate || isNaN(waterBill)) {
+
+  if (isNaN(contractEndDate.getTime()) || isNaN(waterReadingDate.getTime()) || isNaN(waterBill)) {
     results.resultWater.textContent = "Insira todos os dados válidos";
   } else if (waterReadingDate > contractEndDate) {
     results.resultWater.textContent = "Data de leitura inválida";
-  } else if (waterReadingDate < contractEndDate && diffDays > 31) {
+  } else if (waterReadingDate < contractEndDate && daysUse > 31) {
     results.resultWater.textContent =
       "Data de leitura muito antiga, verifique a ultima medição!";
   } else
-    results.resultWater.textContent = `O inquilino consumiu ${diffDays} dias de água após a última leitura e o seu proporcional é ${proportionalValue}`;
+    results.resultWater.textContent = `O inquilino consumiu ${daysUse} dias de água após a última leitura e o seu proporcional é ${formatCurrency(proportionalValue)}`;
 };
 
 controls.differenceDaysWaterBtn.addEventListener("click", calculateWaterHandler);

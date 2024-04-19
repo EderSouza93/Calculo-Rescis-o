@@ -7,7 +7,7 @@ class UtilityBill {
 
     getProportionalBill(contractEndDate) {
         const diffTime = Math.abs(this.readingDate - contractEndDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1);
         const proportionalValue = (this.billValue / this.billPeriod) * diffDays;
         return proportionalValue;
     }
