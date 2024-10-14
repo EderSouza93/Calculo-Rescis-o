@@ -1,61 +1,123 @@
-import { calculateRentBill, calculateExtraRentDays, calculateFineTerminator, calculateWater, calculateEnergy, calculateCondominium } from "./calculations.js";
+import {
+  calculateRentBill,
+  calculateExtraRentDays,
+  calculateFineTerminator,
+  calculateWater,
+  calculateEnergy,
+  calculateCondominium,
+} from "./calculations.js";
 import { Contract } from "./contracts.js";
-import { validateAndSanitizeInput, formatCurrency, getDaysDifference } from './utils.js';
+import {
+  validateAndSanitizeInput,
+  formatCurrency,
+  getDaysDifference,
+} from "./utils.js";
+
+
+const getIds = () => {
+  const ids = {
+    inputs:[],
+    results:[],
+    controls: []
+  };
+  const values = {
+    inputs:{},
+    results:{},
+    controls:{},
+  }
+
+  const allElements = document.querySelectorAll('*[id]');
+
+  allElements.forEach(element => {
+    const id = element.id;
+    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'SELECT') {
+      ids.inputs.push(id);
+      values.inputs[id] = element.value;
+    }
+    if (element.tagName === 'DIV' || element.tagName === 'SPAN' || element.tagName === 'P') {
+      ids.results.push(id);
+      values.results[id] = element.textContent;
+    }
+    if (element.tagName === 'BUTTON' || element.tagName === 'A') {
+      ids.controls.push(id);
+      values.controls[id] = element.tagName === 'A' ? element.href : element.textContent;
+    }
+  });
+  
+  return { ids, values };
+}
+
+const { ids, values } = getIds();
+console.log(ids);
+console.log(values);
 
 
 // DOM variables
 const inputs = {
-  tenantName: document.getElementById("name"),
-  tenateCode: document.getElementById("contratct"),
-  startContract: document.getElementById("start-contract"),
-  contractEndDate: document.getElementById("date-end"),
-  rentAmount: document.getElementById("rent-bill-value"),
-  datePayRent: document.getElementById("rent-payment-date"),
-  waterBillValue: document.getElementById("water-bill-value"),
-  waterReadingDate: document.getElementById("water-reading-date"),
-  energyBillValue: document.getElementById("energy-bill-value"),
-  energyReadingDate: document.getElementById("energy-reading-date"),
-  energyReaderLastBill: document.getElementById("read-last-bill"),
-  energyReaderInspection: document.getElementById("read-last-inspection"),
-  condominiumBillValue: document.getElementById("condominium-bill-value"),
-  condominiumPayment: document.getElementById("condominium-payment"),
-  iptuBillValue: document.getElementById("iptu-bill-value"),
-  iptuPayment: document.getElementById("iptu-payment"),
-  spuBillValue: document.getElementById("spu-bill-value"),
-  spuPayment: document.getElementById("spu-payment"),
+  contract: values.inputs[ids.inputs[0]],
+  address: values.inputs[ids.inputs[1]],
+  tenant: values.inputs[ids.inputs[2]],
+  guarantor: values.inputs[ids.inputs[3]],
+  rent: values.inputs[ids.inputs[4]],
+  owner: values.inputs[ids.inputs[5]],
+  water: values.inputs[ids.inputs[6]],
+  energy: values.inputs[ids.inputs[7]],
+  condominium: values.inputs[ids.inputs[8]],
+  iptu: values.inputs[ids.inputs[9]],
+  spu: values.inputs[ids.inputs[10]],
+  exitReason: values.inputs[ids.inputs[11]],
+  keyDeliveryDate: values.inputs[ids.inputs[12]],
+  keysDelivered: values.inputs[ids.inputs[13]],
+  controlDelivered: values.inputs[ids.inputs[14]],
+  inspection: values.inputs[ids.inputs[15]],
+  allowance: values.inputs[ids.inputs[16]],
+  rentDate: values.inputs[ids.inputs[17]],
+  fineDuration: values.inputs[ids.inputs[18]],
+  energyValue: values.inputs[ids.inputs[19]],
+  energyDate: values.inputs[ids.inputs[20]],
+  waterValue: values.inputs[ids.inputs[21]],
+  waterDate: values.inputs[ids.inputs[22]],
+  condominium: values.inputs[ids.inputs[23]],
+  condominiumPayment: values.inputs[ids.inputs[24]],
+  iptu: values.inputs[ids.inputs[25]],
+  iptuPayment: values.inputs[ids.inputs[26]],
+  spu: values.inputs[ids.inputs[27]],
+  spuPayment: values.inputs[ids.inputs[28]],
 };
 
 const results = {
-  rent: document.getElementById("result-rent"),
-  resultFine: document.getElementById("result-fine"),
-  resultWater: document.getElementById("result-water"),
-  resultEnergy: document.getElementById("result-energy"),
-  resultCondominium: document.getElementById("result-condominium"),
-  resultIptu: document.getElementById("result-iptu"),
-  resultSpu: document.getElementById("result-spu"),
+  rentView: document.getElementById('rent-view'),
+  rentResult: values.results[ids.results[1]],
+  fineResult: values.results[ids.results[2]],
+  energyResult: values.results[ids.results[3]],
+  waterResult: values.results[ids.results[4]],
+  condominiumResult: values.results[ids.results[5]],
+  iptuResult: values.results[ids.results[6]],
+  spuResult: values.results[ids.results[7]],
+  reimbursementSummary: values.results[ids.results[8]],
+  paymentSummary: values.results[ids.results[9]],
 };
 
 const controls = {
-  calculateFineBtn: document.getElementById("calculated-fine"),
-  terminatorFine: document.getElementById("terminator-fine"),
-  dayAllowance: document.getElementById("day-allowance"),
-  calculatedBtnRent: document.getElementById("calculated-rent"),
-  differenceDaysWaterBtn: document.getElementById("difference-days-water"),
-  differenceDaysEnergyBtn: document.getElementById("difference-days-energy"),
-  differenceKWhEnergyBtn: document.getElementById("difference-kWh-energy"),
-  calculateCondominiumBtn: document.getElementById(
-    "difference-days-condominuim"
-  ),
-  calculateIptuBtn: document.getElementById("difference-days-iptu"),
-  calculateSpuBtn: document.getElementById("difference-days-spu"),
-  calculatedGeneral: document.getElementById("calculated-all"),
+  calcRent: values.controls[ids.controls[0]],
+  calcFine: values.controls[ids.controls[1]],
+  calcEnergy: values.controls[ids.controls[2]],
+  calcWater: values.controls[ids.controls[3]],
+  calcCondominium: values.controls[ids.controls[4]],
+  calcIptu: values.controls[ids.controls[5]],
+  calcSpu: values.controls[ids.controls[6]],
+  addFileComents: values.controls[ids.controls[7]],
+  calculateButton: values.controls[ids.controls[8]],
+  generateEmail: values.controls[ids.controls[9]],
 };
 
 const modalElements = {
   modal: document.getElementById("exampleModalCenter"),
   closeBtn: document.getElementById("#exampleModalCente .close"),
-  SaveChangesBtn: document.getElementById("#exampleModalCente .btn btn-primary")
-}
+  SaveChangesBtn: document.getElementById(
+    "#exampleModalCente .btn btn-primary"
+  ),
+};
 
 // máscara de moeda
 /*String.prototype.reverse = function () {
@@ -93,62 +155,122 @@ function mascaraMoeda(campo, evento) {
   input.value = valorFormatado + ',' + valor.slice(-6);
 };*/
 
+// Função para atualizar o texto do elemento rent-view
+const viewRent = () => {
+  const rentInput = document.getElementById('rent'); // Assumindo que o input tem o id 'rent'
+  const rentViewElement = document.getElementById('rent-view');
+
+  if (rentInput && rentViewElement) {
+    const rentValue = rentInput.value;
+    if (rentValue) {
+      rentViewElement.textContent = `R$ ${rentValue}`;
+    } else {
+      rentViewElement.textContent = 'Valor do Aluguel';
+    }
+  }
+};
+
+// Adicionar event listener ao input de aluguel
+const rentInput = document.getElementById('rent');
+if (rentInput) {
+  rentInput.addEventListener('input', viewRent);
+}
+
+// Chamar viewRent inicialmente para configurar o estado inicial
+viewRent();
+
 // Função de calculo de aluguel
-const calculateRentBillHandler = () => {
+function calculateRentBillHandler() {
   const tenantName = inputs.tenantName.value;
   const tenantCode = inputs.tenateCode.value;
   const startDate = new Date(inputs.startContract.value);
   const endDate = new Date(inputs.contractEndDate.value);
   const rentAmount = validateAndSanitizeInput(inputs.rentAmount.value);
-  const contract = new Contract(startDate, endDate, rentAmount, tenantName, tenantCode);
+  const contract = new Contract(
+    startDate,
+    endDate,
+    rentAmount,
+    tenantName,
+    tenantCode
+  );
   const datePayRent = new Date(inputs.datePayRent.value);
   const allowance = validateAndSanitizeInput(controls.dayAllowance.value);
-  const extraRentDays = calculateExtraRentDays(inputs.contractEndDate.value, inputs.datePayRent.value)
+  const extraRentDays = calculateExtraRentDays(
+    inputs.contractEndDate.value,
+    inputs.datePayRent.value
+  );
 
-  const proportionalValue = calculateRentBill(endDate, rentAmount, datePayRent, allowance);
-  
+  const proportionalValue = calculateRentBill(
+    endDate,
+    rentAmount,
+    datePayRent,
+    allowance
+  );
+
   if (proportionalValue === undefined || isNaN(proportionalValue)) {
     results.rent.textContent = "Insira dados válidos";
   } else {
-    results.rent.textContent = `O inquilino usufruiu do imóvel por ${extraRentDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(proportionalValue)}`;
+    results.rent.textContent = `O inquilino usufruiu do imóvel por ${extraRentDays} dias desde o último vencimento e terá que pagar o proporcional de ${formatCurrency(
+      proportionalValue
+    )}`;
   }
-  
-  return (proportionalValue);
-};
+
+  return proportionalValue;
+}
 controls.calculatedBtnRent.addEventListener("click", calculateRentBillHandler);
 
 const calculateFineTerminatorHandler = () => {
   const endDate = new Date(inputs.contractEndDate.value);
   const startDate = new Date(inputs.startContract.value);
   const rentAmount = validateAndSanitizeInput(inputs.rentAmount.value);
-  const terminatorFineValue = validateAndSanitizeInput(controls.terminatorFine.value);
-  const terminatorFineText = controls.terminatorFine.options[controls.terminatorFine.selectedIndex].text; 
-  const extraRentDays = calculateExtraRentDays(endDate, startDate)
+  const terminatorFineValue = validateAndSanitizeInput(
+    controls.terminatorFine.value
+  );
+  const terminatorFineText =
+    controls.terminatorFine.options[controls.terminatorFine.selectedIndex].text;
+  const extraRentDays = calculateExtraRentDays(endDate, startDate);
 
-  const {error, totalFineTerminator} = calculateFineTerminator(endDate, startDate, rentAmount, terminatorFineValue);
+  const { error, totalFineTerminator } = calculateFineTerminator(
+    endDate,
+    startDate,
+    rentAmount,
+    terminatorFineValue
+  );
 
   if (isNaN(endDate.getTime()) || isNaN(startDate.getTime()) || !rentAmount) {
     results.resultFine.textContent = "Insira todos os dados válidos!";
   } else if (extraRentDays >= terminatorFineValue) {
     results.resultFine.textContent = "O contrato não possui multa rescisória";
   } else {
-    results.resultFine.textContent = `O inquilino utilizou ${extraRentDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${formatCurrency(totalFineTerminator)} em seu boleto final`;
+    results.resultFine.textContent = `O inquilino utilizou ${extraRentDays} dias do seu contrato de ${terminatorFineText}, por isso reincidirá uma multa de ${formatCurrency(
+      totalFineTerminator
+    )} em seu boleto final`;
   }
 };
-controls.calculateFineBtn.addEventListener("click", calculateFineTerminatorHandler);
+controls.calculateFineBtn.addEventListener(
+  "click",
+  calculateFineTerminatorHandler
+);
 
 // Função Cálculo de Água
 const calculateWaterHandler = () => {
   //manipulando os inputs
   const waterReadingDate = new Date(inputs.waterReadingDate.value);
-  const waterBill = validateAndSanitizeInput(inputs.waterBillValue.value)
+  const waterBill = validateAndSanitizeInput(inputs.waterBillValue.value);
   const contractEndDate = new Date(inputs.contractEndDate.value);
-  const daysUse = getDaysDifference(waterReadingDate, contractEndDate)
+  const daysUse = getDaysDifference(waterReadingDate, contractEndDate);
 
-  const {error, proportionalValue} = calculateWater(contractEndDate, waterBill, waterReadingDate);
+  const { error, proportionalValue } = calculateWater(
+    contractEndDate,
+    waterBill,
+    waterReadingDate
+  );
 
-
-  if (isNaN(contractEndDate.getTime()) || isNaN(waterReadingDate.getTime()) || isNaN(waterBill)) {
+  if (
+    isNaN(contractEndDate.getTime()) ||
+    isNaN(waterReadingDate.getTime()) ||
+    isNaN(waterBill)
+  ) {
     results.resultWater.textContent = "Insira todos os dados válidos";
   } else if (waterReadingDate > contractEndDate) {
     results.resultWater.textContent = "Data de leitura inválida";
@@ -156,10 +278,15 @@ const calculateWaterHandler = () => {
     results.resultWater.textContent =
       "Data de leitura muito antiga, verifique a ultima medição!";
   } else
-    results.resultWater.textContent = `O inquilino consumiu ${daysUse} dias de água após a última leitura e o seu proporcional é ${formatCurrency(proportionalValue)}`;
+    results.resultWater.textContent = `O inquilino consumiu ${daysUse} dias de água após a última leitura e o seu proporcional é ${formatCurrency(
+      proportionalValue
+    )}`;
 };
 
-controls.differenceDaysWaterBtn.addEventListener("click", calculateWaterHandler);
+controls.differenceDaysWaterBtn.addEventListener(
+  "click",
+  calculateWaterHandler
+);
 
 // Função de Cálculo de Energia por dias
 const calculateEnergyHandler = () => {
@@ -189,7 +316,10 @@ const calculateEnergyHandler = () => {
   } else
     results.resultEnergy.textContent = `O inquilino consumiu ${diffDays} dias  de energia após a última leitura e o seu proporcional é ${valueEnergyCurrency}`;
 };
-controls.differenceDaysEnergyBtn.addEventListener("click", calculateEnergyHandler);
+controls.differenceDaysEnergyBtn.addEventListener(
+  "click",
+  calculateEnergyHandler
+);
 
 // Função de Cálculo de Energia por dias
 /*const calculateEnergyKwhHandler = () => {
@@ -305,7 +435,7 @@ const calculateIPTUHandler = () => {
 
   let IptuValueCurrency = formatCurrency(positiveValue);
 
-  // definindo uma tolerância para evitar problemas com o ponto flotuante.
+  // definindo uma tolerância para evitar problemas com o ponto flutuante.
   const tolerance = 0.01;
 
   if (!contractEndDate || isNaN(iptuBillValue)) {

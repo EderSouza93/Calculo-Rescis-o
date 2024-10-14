@@ -8,6 +8,12 @@
 }
 body {
   background-color: darkgrey;
+  font: 14px
+}
+
+.container-data {
+  display: flex;
+  justify-content: center;
 }
 
 .card{
@@ -17,6 +23,26 @@ body {
   gap: 1rem;
   border-color: black;
   box-shadow: .2rem .2rem #4e4848;
+}
+
+.important-information {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.important-information .input {
+  margin: 1rem;
+}
+
+@media (max-width: 822px) {
+
+  .important-information {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
 }
 
 @media (min-width: 576px) {

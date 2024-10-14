@@ -20,6 +20,7 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 - HTML
 - CSS
 - JavaScript (ES6+)
+- Tailwind
 
 ## Instalação e Uso
 
@@ -27,9 +28,12 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 2. Navegue até o diretório do projeto: `cd CALCULO-RESCI-O`
 3. Abra o arquivo `index.html` em um navegador web.
 
-## Contribuição
+## Proximas Atualizações 
 
-Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões de melhorias, sinta-se à vontade para abrir uma nova issue ou enviar um pull request.
+Alteração da lógica, verificar se haverá necessidade de utilizar POO para esse caso. 
+
+O sponsor solicitou o salvamento dos dados para que prossiga com o levantamento em algum momento, isso traz a necessidade de um endpoint ligado a um banco de dados, e uma mascara no campo de mooeda e contrato, criar utilizando o regex, além do envio do email não pode ser automático, pois ele precisa revisar os pontos antes do envio. 
+Será necessário adicionar alguns inputs como email e telefone para prosseguir com o envio de e-mail, o envio de arquivo é necessário para gerar um relatório pdf com as informações junto desses arquivos anexados. 
 
 ## Licença
 

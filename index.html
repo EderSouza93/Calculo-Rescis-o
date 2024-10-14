@@ -1,296 +1,507 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="shortcut icon" href="/img/faviconWhite.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./src/css/style.css">
-    <title>Levantamento de contas</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Formulário Levantamento de Contas</title>
   </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" target="_blank" href="https://www.cohabpremium.com.br/">
-            <img src="./img/Ícone Azul.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-            Encontro de Contas
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://www.cohabpremium.com.br/kurole-sistema-imobiliario/">Kurole</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://energisa.com.br/paginas/servicos-online/autoatendimento/extrato-e-2via-da-conta.aspx">Energisa</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" target="_blank" href="http://www.deso-se.com.br/agenciavirtual/index.php">Deso</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://fazenda.aracaju.se.gov.br/#/publica/contribuinte/consulta-debito/busca/IPTU">IPTU</a>
-              </li>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" target="_blank" href="https://atendimentovirtual2.spu.planejamento.gov.br/Emissoes/DARF/DARFPedido.asp">SPU</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#JanelaModal">
-          Atualizar Taxas
-        </button>
-
-          <!-- Modal -->
-          <div class="modal" id="JanelaModal">
-            <div class="modal-dialog modal-dialog-scrollable">
-              <div class="modal-content">
-
-                <div class="modal-header">
-                  <h3 class="modal-title">Valores das Taxas</h3>
-                  <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                      <h6 class="card-title">Fornecimento Monofásico</h6>
-                      <input class="form-control" type="number" id="MonofásicoSalvar">      
-                      <h6 class="card-title">Fornecimento Bifásico</h6>
-                      <input class="form-control" type="number" id="MonofásicoSalvar">      
-                      <h6 class="card-title">Fornecimento Trifásico</h6>
-                      <input class="form-control" type="number" id="MonofásicoSalvar">      
-                </div>
-
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                  <button type="button" class="btn btn-primary">Salvar Mudanças</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+  <body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white shadow">
+      <div class="container mx-auto px-6 py-3">
+        <h1 class="text-2xl font-bold">Formulário Levantamento de Contas</h1>
+      </div>
     </header>
-    <section>
-      <div class="container-data">
-        <div class=" col-sm-11 col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="card-title">Locatário</h6>
-              <input class="form-control" placeholder="Nome Completo" type="text" id="name">
-            </div>
+
+    <main class="container mx-auto px-4 py-8">
+      <!-- Section Contract Info -->
+      <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Informações do Contrato</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="contract"
+              >Contrato</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="contract"
+              type="text"
+              placeholder="2719-0-10"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="address"
+              >Endereço</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="address"
+              type="text"
+              placeholder="Rua Deputado Clovis Rollemberg, 824, Atlântico - nº 205 - Edi/Cond Pérolas da Atalaia"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="tenant"
+              >Inquilino</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="tenant"
+              type="text"
+              placeholder="Lenora Edelweis D'avila Fontes de Alencar"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700">Fiança</label>
+            <select class="form-select mt-1 block w-full" id="guarantor">
+              <option value="CredPago">CredPago/Loft</option>
+              <option value="Fiador">Fiador</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="rent"
+              >Aluguel</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="rent"
+              type="text"
+              placeholder="R$ 2.000,00"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="owner"
+              >Proprietário</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="owner"
+              type="text"
+              placeholder="Lenora Edelweis D'avila Fontes de Alencar"
+            />
           </div>
         </div>
-        <div class="col-sm-11 col-md-2">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="card-title">Contrato</h6>
-              <input class="form-control" placeholder="KSI" type="text" id="contratct">
-            </div>
+      </div>
+      <!-- Section Promissory Info -->
+      <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Situação dos Encargos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="water"
+              >Água</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="water"
+              type="text"
+              placeholder="Matrícula: 7596671"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="energy"
+              >Energia</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="energy"
+              type="text"
+              placeholder="Matrícula: 3/1482417-1"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="condominium"
+              >Condomínio</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="condominium"
+              type="text"
+              placeholder="Admin: MOREIRA"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="iptu"
+              >IPTU</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="iptu"
+              type="text"
+              placeholder="Matrícula: 34011230480010.13"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="spu"
+              >SPU</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="spu"
+              type="text"
+              placeholder="N/A"
+            />
           </div>
         </div>
-        <div class="col-sm-11 col-md-3">
-          <div class="card">
-            <div class="card-body">
-              <label for="form-control">Início do contrato</label>
-              <input class="form-control" type="date" required="required" id="start-contract">
-            </div>
+      </div>
+      <!-- Section Exit info -->
+      <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Informações de Saída</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="exit-reason"
+              >Motivo de Saída</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="exit-reason"
+              type="text"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="key-delivery-date"
+              >Data de Entrega das Chaves</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="key-delivery-date"
+              type="date"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="keys-delivered"
+              >Qtd. Chaves Entregues</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="keys-delivered"
+              type="text"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="control-delivered"
+              >Qtd. Controles entregues</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="control-delivered"
+              type="text"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700">Vistoria Final</label>
+            <select class="form-select mt-1 block w-full" id="inspection">
+              <option selected value="Em andamento">Em andamento</option>
+              <option value="Aprovada">Aprovada</option>
+              <option value="Reprovada">Reprovada</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-gray-700">Abono de dias</label>
+            <select class="form-select mt-1 block w-full" id="allowance">
+              <option selected value="0">Não</option>
+              <option value="1">Um dia</option>
+              <option value="2">Dois dias</option>
+              <option value="3">Três dias</option>
+            </select>
           </div>
         </div>
-        <div class="col-sm-11 col-md-3">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="card-title">Data de finalização do contrato</h6>
-              <input class="form-control" type="date" required="required" id="date-end">
+      </div>
+
+      <!-- Card Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Aluguel -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Aluguel</h3>
+
+          <p id="rent-view" class="mt-2">Valor do Aluguel</p>
+
+          <label class="block mt-4">Data do último vencimento</label>
+          <input
+            class="form-input mt-1 block w-full"
+            type="date"
+            id="rent-date"
+          />
+          <div class="bg-blue-100 p-4 mt-4 rounded-lg">
+            <p class="font-bold">Proporcionalidade</p>
+            <p id="rent-result" class="mt-2">Resultado aqui</p>
+          </div>
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="calc-rent"
+          >
+            Calcular
+          </button>
+        </div>
+
+        <!-- Multa Rescisória -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Multa Rescisória</h3>
+          <label class="block mt-4">Vigência do Contrato</label>
+          <select class="form-select mt-1 block w-full" id="fine-duration">
+            <option value="365">1 ano</option>
+            <option value="730">2 anos</option>
+          </select>
+          <div class="bg-blue-100 p-4 mt-12 rounded-lg">
+            <p class="font-bold">Resultado</p>
+            <p id="fine-result" class="mt-2">Resultado aqui</p>
+          </div>
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="calc-fine"
+          >
+            Calcular
+          </button>
+        </div>
+
+        <!-- Energia por dia -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Calculo de Energia</h3>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Valor da última fatura"
+            id="energy-value"
+          />
+          <label class="block mt-4">Data da última leitura</label>
+          <input
+            class="form-input mt-1 block w-full"
+            type="date"
+            id="energy-date"
+          />
+          <div class="bg-blue-100 p-4 mt-4 rounded-lg">
+            <p class="font-bold">Proporcionalidade</p>
+            <p id="energy-result" class="mt-2">Resultado aqui</p>
+          </div>
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="calc-energy"
+          >
+            Calcular
+          </button>
+        </div>
+        <!-- Agua por dia -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Calculo de Água</h3>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Valor da última fatura"
+            id="water-value"
+          />
+          <label class="block mt-4">Data da última leitura</label>
+          <input
+            class="form-input mt-1 block w-full"
+            type="date"
+            id="water-date"
+          />
+          <div class="bg-blue-100 p-4 mt-4 rounded-lg">
+            <p class="font-bold">Proporcionalidade</p>
+            <p id="water-result" class="mt-2">Resultado aqui</p>
+          </div>
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="calc-water"
+          >
+            Calcular
+          </button>
+        </div>
+        <!-- Condominio -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Calculo de Condominio</h3>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Valor do condominio"
+            id="condominium"
+          />
+          <label class="block mt-4">Valor Pago</label>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Quanto foi pago"
+            id="condominium-payment"
+          />
+          <div class="bg-blue-100 p-4 mt-4 rounded-lg">
+            <p class="font-bold">Proporcionalidade</p>
+            <p id="condominium-result" class="mt-2">Resultado aqui</p>
+          </div>
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="calc-condominium"
+          >
+            Calcular
+          </button>
+        </div>
+        <!-- IPTU -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Calculo de IPTU</h3>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Valor do IPTU"
+            id="iptu"
+          />
+          <label class="block mt-4">Valor Pago</label>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Quanto foi pago"
+            id="iptu-payment"
+          />
+          <div class="bg-blue-100 p-4 mt-4 rounded-lg">
+            <p class="font-bold">Proporcionalidade</p>
+            <p id="iptu-result" class="mt-2">Resultado aqui</p>
+          </div>
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="calc-iptu"
+          >
+            Calcular
+          </button>
+        </div>
+        <!-- SPU -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Calculo de SPU</h3>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Valor do SPU"
+            id="spu"
+          />
+          <label class="block mt-4">Valor Pago</label>
+          <input
+            class="form-input mt-2 block w-full"
+            type="text"
+            placeholder="Quanto foi pago"
+            id="spu-payment"
+          />
+          <div class="bg-blue-100 p-4 mt-4 rounded-lg">
+            <p class="font-bold">Proporcionalidade</p>
+            <p id="spu-result" class="mt-2">Resultado aqui</p>
+          </div>
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="calc-spu"
+          >
+            Calcular
+          </button>
+        </div>
+        <!-- Observações -->
+        <div class="bg-white shadow-lg p-6 rounded-lg">
+          <h3 class="text-lg font-bold">Observações</h3>
+
+          <textarea
+            class="w-full h-32 p-2 border rounded-md resize-none"
+            placeholder="Digite seu texto aqui..."
+          ></textarea>
+
+          <label class="block">
+            <span class="sr-only">Anexe Arquivos</span>
+            <label class="block mt-1"> Anexe Arquivos necessários</label>
+            <input
+              type="file"
+              multiple
+              class="block mt-3 text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-700"
+            />
+          </label>
+
+          <button
+            class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700"
+            id="add-file-coments"
+          >
+            Enviar
+          </button>
+        </div>
+      </div>
+
+      <!-- Resumo levantamento de Contas-->
+      <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">
+          Resumo do Levantamento de Contas
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h3 class="text-lg font-semibold mb-2">
+              Valores a Serem Ressarcidos
+            </h3>
+            <div id="reimbursement-summary" class="bg-green-100 p-4 rounded">
+              <!-- Os valores calculados serão inseridos aqui via JavaScript -->
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-2">Valores a Serem Pagos</h3>
+            <div id="payment-summary" class="bg-red-100 p-4 rounded">
+              <!-- Os valores calculados serão inseridos aqui via JavaScript -->
             </div>
           </div>
         </div>
       </div>
 
-      <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-          <div class="col-md-4" id="rent">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Aluguel</h5>
-                <input class="form-control" type="text" size="12" placeholder="Valor do aluguel" id="rent-bill-value" required>
-                <label for="form-control">Data do ultimo vencimento</label>
-                <input class="form-control" type="date" id="rent-payment-date">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Proporcionalidade</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-rent"></div>
-                </div>
-                <div class="col-md-4">
-                  <button type="button" class="btn btn-outline-primary" id="calculated-rent">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4" id="card-fine">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Cálculo de multa Rescisória</h5>
-                <label for="select">Vigência do Contrato</label>
-                <select class="form-select form-select-sm" aria-label="Small select example" id="terminator-fine">
-                  <option value="365" selected>1 ano</option>
-                  <option value="730">2 anos</option>
-                  <option value="1095">3 anos</option>
-                  <option value="1460">4 anos</option>
-                  <option value="1825">5 anos</option>
-                  <option value="2190">6 anos</option>
-                  <option value="2555">7 anos</option>
-                  <option value="2920">8 anos</option>
-                  <option value="3285">9 anos</option>
-                  <option value="3650">10 anos</option>
-                </select>
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Resultado</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-fine"></div>
-                </div>
-                <div class="col-md-4">
-                  <button type="button" class="btn btn-outline-primary" id="calculated-fine">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4" id="energyForDay">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Calculo Energia por dia</h5>
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da ultima fatura de energia" id="energy-bill-value">
-                <label for="form-control">Data da ultima leitura</label>
-                <input class="form-control" type="date" id="energy-reading-date">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Proporcionalidade</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-energy"></div>
-                </div>
-                <div class="col-sm-4 col-md-6">
-                  <button type="button" class="btn btn-outline-primary" id="difference-days-energy">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4" id="energyForKWh">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Calculo Energia por kWh</h5>
-                <input class="form-control" type="number" size="12" placeholder="Leitura da ultima fatura" id="read-last-bill">
-                <input class="form-control" type="number" size="12" placeholder="Leitura da ultima vistoria" id="read-last-inspection">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Tipo de Fornecimento</option>
-                  <option value= 30>Monofásico</option>
-                  <option value= 50>Bifásico</option>
-                  <option value= 100>Trifásico</option>
-                </select>
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Proporcionalidade</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-energy"> Em desenvolvimento </div>
-                </div>
-                <div class="col-sm-4 col-md-6">
-                  <button type="button" class="btn btn-outline-primary" id="difference-kWh-energy">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4" id="water">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Fatura de Água</h5>
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this,event)" placeholder="Valor da ultima fatura de água" id="water-bill-value" required>
-                <label for="form-control">Data da ultima leitura</label>
-                <input class="form-control" type="date" id="water-reading-date">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Proporcionalidade</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-water"></div>
-                </div>
-                <div class="col-md-4">
-                  <button type="button" class="btn btn-outline-primary" id="difference-days-water">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4" id="condominium">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Condomínio</h5>
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor do condomínio" id="condominium-bill-value">
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="condominium-payment">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Proporcionalidade</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-condominium"></div>
-                </div>
-                <div class="col-md-4">
-                  <button type="button" class="btn btn-outline-primary" id="difference-days-condominuim">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4" id="iptu">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">IPTU</h5>
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor total do IPTU" id="iptu-bill-value">
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="iptu-payment">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Proporcionalidade</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-iptu"></div>
-                </div>
-                <div class="col-md-4">
-                  <button type="button" class="btn btn-outline-primary" id="difference-days-iptu">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4" id="spu">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">SPU</h5>
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Valor da total do SPU" id="spu-bill-value">
-                <input class="form-control" type="text" size="12" onkeyup="mascaraMoeda(this, event)" placeholder="Quanto foi pago" id="spu-payment">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-                  <div class="card-header">Proporcionalidade</div>
-                  <div class="card-body" style="min-height: 3rem;" id="result-spu"></div>
-                </div>
-                <div class="col-md-4">
-                  <button type="button" class="btn btn-outline-primary" id="difference-days-spu">Calcular</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Abono de dias</h5>
-                <select class="form-select form-select-sm" aria-label="Small select example" id="day-allowance">
-                  <option value="0" selected>Haverá abono de dias?</option>
-                  <option value="0">Não</option>
-                  <option value="1">um dia</option>
-                  <option value="2">dois dias</option>
-                  <option value="3">três dias</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <div class="flex justify-end">
+        <button
+          id="calculate-button"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Calcular Totais
+        </button>
+        <button
+          id="generate-email"
+          class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Gerar Email Proprietário
+        </button>
       </div>
-    </section>
+    </main>
 
-    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js" crossorigin="anonymous"></script>
-    <script type="importmap">
-    {
-      "imports": {
-        "@popperjs/core": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/esm/popper.min.js",
-        "bootstrap": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.esm.min.js"
-      }
-    }
-    </script>
-    <script type="module">
-      import * as bootstrap from 'bootstrap'
+    <script>
+      document
+        .getElementById("calculate-button")
+        .addEventListener("click", function () {
+          // Aqui você implementará a lógica de cálculo
+          // e atualizará os resumos de reembolso e pagamento
+          document.getElementById("reimbursement-summary").innerHTML = `
+                <p>Aluguel: R$ X.XXX,XX</p>
+                <p>Condomínio: R$ XXX,XX</p>
+                <p>IPTU: R$ XXX,XX</p>
+                <p><strong>Total: R$ X.XXX,XX</strong></p>
+            `;
+          document.getElementById("payment-summary").innerHTML = `
+                <p>Água: R$ XX,XX</p>
+                <p>Energia: R$ XXX,XX</p>
+                <p>SPU: R$ XX,XX</p>
+                <p><strong>Total: R$ XXX,XX</strong></p>
+            `;
+        });
 
-      new bootstrap.Popover(document.getElementById('popoverButton'))
+      document
+        .getElementById("generate-email")
+        .addEventListener("click", function () {
+          // Implementar a lógica para gerar o email do proprietário
+          alert("Funcionalidade de geração de email será implementada aqui.");
+        });
     </script>
     <script type="module" src="./src/js/script.js"></script>
   </body>
