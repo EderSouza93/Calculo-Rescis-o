@@ -4,7 +4,7 @@ const getIds = () => {
     results:[],
     controls: []
   };
-  const values = {
+  const elements = {
     inputs:{},
     results:{},
     controls:{},
@@ -14,84 +14,101 @@ const getIds = () => {
 
   allElements.forEach(element => {
     const id = element.id;
-    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'SELECT') {
+    if (['INPUT','TEXTAREA','SELECT'].includes(element.tagName)) {
       ids.inputs.push(id);
-      values.inputs[id] = element.value;
+      elements.inputs[id] = element;
     }
-    if (element.tagName === 'DIV' || element.tagName === 'SPAN' || element.tagName === 'P') {
+    if (['DIV', 'SPAN', 'P'].includes(element.tagName)) {
       ids.results.push(id);
-      values.results[id] = element.textContent;
+      elements.results[id] = element;
     }
-    if (element.tagName === 'BUTTON' || element.tagName === 'A') {
+    if (['BUTTON', 'A'].includes(element.tagName)) {
       ids.controls.push(id);
-      values.controls[id] = element.tagName === 'A' ? element.href : element.textContent;
+      elements.controls[id] = element;
     }
   });
   
-  return { ids, values };
+  return { ids, elements };
 }
 
-const { ids, values } = getIds();
+const { ids, elements } = getIds();
 console.log(ids);
-console.log(values);
+console.log(elements);
 
-// máscara de moeda
-/*String.prototype.reverse = function () {
-  return this.split("").reverse().join("");
+//Função geral Mascaras 
+const applyMask = (input, maskType) => {
+  if (!input || !input.value) return;
+
+  let value = input.value.replace(/\D/g, '');
+
+  switch(maskType) {
+    case 'contract':
+      input.value = maskContract(value);
+      break;
+      //adicionar outras mascaras
+    default:
+      break;
+  }
+}
+const maskContract = (value) => {
+  const part1 = value.slice(0, 4);
+  const part2 = value.slice(4, 5);
+  const part3 = value.slice(5, 7);
+
+  return `${part1}${part2 ? '-' + part2: ''}${part3 ? '-' + part3 : ''}`
 };
 
+document.addEventListener('DOMContentLoaded', function () {
+  elements.inputs['contract'].addEventListener('input', function() {
+    applyMask(this, 'contract');
+  });
+});
 
 
-function mascaraMoeda(campo, evento) {
-  var tecla = !evento ? window.event.keyCode : evento.which;
-  var valor = campo.value.replace(/[^\d]+/gi, "").reverse();
-  var resultado = "";
-  var mascara = "##.###.###,##".reverse();
-  for (var x = 0, y = 0; x < mascara.length && y < valor.length; ) {
-    if (mascara.charAt(x) != "#") {
-      resultado += mascara.charAt(x);
-      x++;
-    } else {
-      resultado += valor.charAt(y);
-      y++;
-      x++;
-    }
-  }
-  campo.value = resultado.reverse();
-}
-
-// máscara da taxa de energia 
-/*const mascaraTaxa = (input, event) => {
-  let valor = input.value.replace(/\D/g, '');
-  valor = valor.padStart(7, '0');
-  let valorFormatado = valor.slice(0, -6).replace(/^0+/,'');
-  if (valorFormatado === '') {
-    valorFormatado = '0';
-  }
-  input.value = valorFormatado + ',' + valor.slice(-6);
-};*/
 
 // Função para atualizar o texto do elemento rent-view
 const viewRent = () => {
-  const rentInput = document.getElementById('rent'); // Assumindo que o input tem o id 'rent'
-  const rentViewElement = document.getElementById('rent-view');
+  const rentInput = elements.inputs['rent']
+  const rentViewElement = elements.results['rent-view'];
 
   if (rentInput && rentViewElement) {
     const rentValue = rentInput.value;
-    if (rentValue) {
-      rentViewElement.textContent = `R$ ${rentValue}`;
-    } else {
-      rentViewElement.textContent = 'Valor do Aluguel';
-    }
+    rentViewElement.textContent = rentValue ? `R$ ${rentValue}` : 'Valor do Aluguel';
   }
 };
 
 // Adicionar event listener ao input de aluguel
-const rentInput = document.getElementById('rent');
+const rentInput = elements.inputs['rent'];
 if (rentInput) {
   rentInput.addEventListener('input', viewRent);
 }
 
 // Chamar viewRent inicialmente para configurar o estado inicial
 viewRent();
+
+const durationMap = {
+  '365':'1 Ano',
+  '730':'2 Anos',  
+  '1095':'3 Anos',  
+  '1460':'4 Anos',  
+  '1825':'5 Anos',  
+};
+
+const viewContractDuration = () => {
+  const contractDuration = elements.inputs['contract-duration'];
+  const contractDurationViewElement = elements.results['contract-duration-view'];
+
+  if (contractDuration && contractDurationViewElement) {
+    const DurationValue = contractDuration.value;
+    const durationText = durationMap[DurationValue] || '';
+    contractDurationViewElement.textContent = durationText;
+  }
+};
+
+const contractDuration = elements.inputs['contract-duration'];
+if (contractDuration) {
+  contractDuration.addEventListener('change', viewContractDuration);
+}
+
+viewContractDuration()
 
