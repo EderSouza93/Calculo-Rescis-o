@@ -1,35 +1,6 @@
-const getIds = () => {
-  const ids = {
-    inputs: [],
-    results: [],
-    controls: [],
-  };
-  const elements = {
-    inputs: {},
-    results: {},
-    controls: {},
-  };
-
-  const allElements = document.querySelectorAll("*[id]");
-
-  allElements.forEach((element) => {
-    const id = element.id;
-    if (["INPUT", "TEXTAREA", "SELECT"].includes(element.tagName)) {
-      ids.inputs.push(id);
-      elements.inputs[id] = element;
-    }
-    if (["DIV", "SPAN", "P"].includes(element.tagName)) {
-      ids.results.push(id);
-      elements.results[id] = element;
-    }
-    if (["BUTTON", "A"].includes(element.tagName)) {
-      ids.controls.push(id);
-      elements.controls[id] = element;
-    }
-  });
-
-  return { ids, elements };
-};
+import { getIds } from "./domUtils.js";
+import { applyMask, maskContract, maskPhone, maskRent, maskCurrency } from "./masks.js";
+import { autoSave } from "./autoSave.js";
 
 const { ids, elements } = getIds();
 console.log(ids);
@@ -48,62 +19,6 @@ const applyMaskToMultipleFields = (selectors, maskType) => {
   });
 };
 
-//Função geral Mascaras
-const applyMask = (input, maskType) => {
-  if (!input || !input.value) return;
-
-  let value = input.value.replace(/\D/g, "");
-
-  switch (maskType) {
-    case "contract":
-      input.value = maskContract(value);
-      break;
-    case "phone":
-      input.value = maskPhone(value);
-      break;
-    case "rent":
-      input.value = maskRent(value);
-      break;
-    case "currency":
-      input.value = maskCurrency(value);
-      break;
-    default:
-      break;
-  }
-};
-const maskContract = (value) => {
-  const part1 = value.slice(0, 4);
-  const part2 = value.slice(4, 5);
-  const part3 = value.slice(5, 7);
-
-  return `${part1}${part2 ? "-" + part2 : ""}${part3 ? "-" + part3 : ""}`;
-};
-
-const maskPhone = (value) => {
-  const countryCode = value.slice(0, 2);
-  const areaCode = value.slice(2, 4);
-  const part1 = value.slice(4, 9);
-  const part2 = value.slice(9, 13);
-
-  return `(+${countryCode} ${areaCode}) ${part1}-${part2}`;
-};
-const maskRent = (value) => {
-  const countryCode = value.slice(0, 2);
-  const areaCode = value.slice(2, 4);
-  const part1 = value.slice(4, 9);
-  const part2 = value.slice(9, 13);
-
-  return `(+${countryCode} ${areaCode}) ${part1}-${part2}`;
-};
-
-const maskCurrency = (value) => {
-  const formattedValue = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(value / 100);
-
-  return formattedValue;
-};
 
 document.addEventListener("DOMContentLoaded", function () {
   getIds();
@@ -163,3 +78,15 @@ if (contractDuration) {
 }
 
 viewContractDuration();
+
+const sendInputsToBackend = () => {
+  const inputValues = {};
+
+  Object.keys(elements.inputs).forEach((id) => {
+    inputValues[id] = elements.inputs[id].value;
+  });
+
+  autoSave(inputValues)
+}
+
+elements.controls['save-button'].addEventListener('click', sendInputsToBackend)
