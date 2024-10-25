@@ -1,6 +1,13 @@
 import { getIds } from "./domUtils.js";
-import { applyMask, maskContract, maskPhone, maskRent, maskCurrency } from "./masks.js";
+import {
+  applyMask,
+  maskContract,
+  maskPhone,
+  maskRent,
+  maskCurrency,
+} from "./masks.js";
 import { autoSave } from "./autoSave.js";
+
 
 const { ids, elements } = getIds();
 console.log(ids);
@@ -19,12 +26,24 @@ const applyMaskToMultipleFields = (selectors, maskType) => {
   });
 };
 
-
 document.addEventListener("DOMContentLoaded", function () {
   getIds();
   applyMaskToMultipleFields(["contract"], "contract");
   applyMaskToMultipleFields(["tenant-phone", "owner-phone"], "phone");
-  applyMaskToMultipleFields(["rent"], "currency");
+  applyMaskToMultipleFields(
+    [
+      "rent",
+      "energy-value",
+      "water-value",
+      "condominium",
+      "condominium-payment",
+      "iptu",
+      "iptu-payment",
+      "spu",
+      "spu-payment",
+    ],
+    "currency"
+  );
 
   // Adicionar event listener ao input de aluguel
   const rentInput = elements.inputs["rent"];
@@ -79,14 +98,38 @@ if (contractDuration) {
 
 viewContractDuration();
 
+const formatCurrencyToNumber = (value) => {
+  if (!value) return 0;
+
+  return Number(
+    value
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(/\s/g, "")
+      .replace(",", ".")
+  );
+};
+
 const sendInputsToBackend = () => {
   const inputValues = {};
 
   Object.keys(elements.inputs).forEach((id) => {
-    inputValues[id] = elements.inputs[id].value;
+    inputValues[id] = [
+      "rent",
+      "energy-value",
+      "water-value",
+      "condominium",
+      "condominium-payment",
+      "iptu",
+      "iptu-payment",
+      "spu",
+      "spu-payment",
+    ].includes(id)
+      ? formatCurrencyToNumber(elements.inputs[id].value)
+      : elements.inputs[id].value;
   });
 
-  autoSave(inputValues)
-}
+  autoSave(inputValues);
+};
 
-elements.controls['save-button'].addEventListener('click', sendInputsToBackend)
+elements.controls["save-button"].addEventListener("click", sendInputsToBackend);
