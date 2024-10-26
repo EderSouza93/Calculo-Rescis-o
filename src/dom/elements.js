@@ -1,32 +1,31 @@
-export const getIds = () => {
-    const ids = {
-      inputs: [],
-      results: [],
-      controls: [],
-    };
+export const domManager = {
+  getElements() {
     const elements = {
       inputs: {},
       results: {},
       controls: {},
     };
-  
+
     const allElements = document.querySelectorAll("*[id]");
-  
+
+    console.log('Todos os elementos encontrados:',
+        Array.from(allElements).map(el => ({
+            id: el.id,
+            tagName: el.tagName
+        }))
+     )
+
     allElements.forEach((element) => {
       const id = element.id;
       if (["INPUT", "TEXTAREA", "SELECT"].includes(element.tagName)) {
-        ids.inputs.push(id);
         elements.inputs[id] = element;
-      }
-      if (["DIV", "SPAN", "P"].includes(element.tagName)) {
-        ids.results.push(id);
+      } else if (["DIV", "SPAN", "P"].includes(element.tagName)) {
         elements.results[id] = element;
-      }
-      if (["BUTTON", "A"].includes(element.tagName)) {
-        ids.controls.push(id);
+      } else if (["BUTTON", "A"].includes(element.tagName)) {
         elements.controls[id] = element;
       }
     });
-  
-    return { ids, elements };
-  };
+
+    return elements;
+  },
+};
