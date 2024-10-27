@@ -20,6 +20,11 @@ class ContractManager {
     this.elements.controls["calc-rent"]?.addEventListener("click", () =>
       this.calculateRent()
     );
+    
+    this.calculateFineTerminator()
+    this.elements.controls["calc-fine"] ?.addEventListener("click", () =>
+      this.calculateFineTerminator()
+    );
 
     // Salvamento
     this.elements.controls["save-button"]?.addEventListener("click", () =>
@@ -86,29 +91,48 @@ class ContractManager {
       allowanceDays
     );
 
-    if (result.success) {
-        this.elements.results["rent-result"].innerText = result.message
-    } else {
-        this.elements.results["rent-result"].innerText = result.message
-    }
+    this.elements.results['rent-result'].innerText = result.message
+  }
+
+  calculateFineTerminator() {
+    const startDate = new Date(this.elements.inputs['start-date'].value);
+    const endDate = new Date(this.elements.inputs['key-delivery-date'].value);
+    const rentValue = formatters.toNumber(this.elements.inputs['rent'].value);
+    const contractDuration = parseFloat(this.elements.inputs['contract-duration'].value);
+    const contractDurationText = this.elements.inputs['contract-duration'].selectedOptions[0].text;
+
+    const result = contractCalculator.calculateTerminatorFine(
+      startDate,
+      endDate,
+      rentValue,
+      contractDuration,
+      contractDurationText
+    );
+
+    this.elements.results['fine-result'].innerText = result.message
+  }
+
+  collectFormData() {
+    const formData = {};
+
+    const allElements = {...this.elements.inputs, ...this.elementsresults };
+
+    Object.entries(allElements).forEach(([id, element]) => {
+      formData[id] = element.value;
+    });
+    return formData;
   }
 
   async saveContract() {
     try {
       const formData = this.collectFormData();
       await contractService.saveContract(formData);
+
+      console.log(formData)
     } catch (error) {
         notification("Erro ao salvar o contrato. Tente novamente mais tarde.", "#ef4444");
       console.error(error);
     }
-  }
-
-  collectFormData() {
-    const formData = {};
-    Object.entries(this.elements.inputs).forEach(([id, element]) => {
-      formData[id] = element.value;
-    });
-    return formData;
   }
 
   updateRentView() {

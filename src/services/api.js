@@ -24,6 +24,7 @@ export const contractService = {
                     notification("Erro ao salvar o contrato. Tente novamente mais tarde.", "#ef4444", 3000);
                 }        
             }
+
         } catch (error) {
             notification("Falha na conexão com o servidor. Verifique sua conexão e tente novamente.", "#ef4444", 3000);
             throw error;

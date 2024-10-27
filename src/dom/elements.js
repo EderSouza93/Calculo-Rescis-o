@@ -9,11 +9,7 @@ export const domManager = {
     const allElements = document.querySelectorAll("*[id]");
 
     console.log('Todos os elementos encontrados:',
-        Array.from(allElements).map(el => ({
-            id: el.id,
-            tagName: el.tagName
-        }))
-     )
+        elements.controls,'controls', elements.inputs, 'inputs', elements.results, 'results')
 
     allElements.forEach((element) => {
       const id = element.id;
