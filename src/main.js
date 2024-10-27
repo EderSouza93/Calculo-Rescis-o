@@ -26,6 +26,31 @@ class ContractManager {
       this.calculateFineTerminator()
     );
 
+    this.calculateEnergy()
+    this.elements.controls["calc-energy"] ?.addEventListener("click", () => 
+      this.calculateEnergy()
+    )
+
+    this.calculateWater()
+    this.elements.controls["calc-water"] ?.addEventListener("click", () => 
+      this.calculateWater()
+    )
+
+    this.calculateCondominium()
+    this.elements.controls["calc-condominium"] ?.addEventListener("click", () => 
+      this.calculateCondominium()
+    )
+
+    this.calculateIPTU()
+    this.elements.controls["calc-iptu"] ?.addEventListener("click", () => 
+      this.calculateIPTU()
+    )
+
+    this.calculateSPU()
+    this.elements.controls["calc-spu"] ?.addEventListener("click", () => 
+      this.calculateSPU()
+    )
+
     // Salvamento
     this.elements.controls["save-button"]?.addEventListener("click", () =>
       this.saveContract()
@@ -109,7 +134,59 @@ class ContractManager {
       contractDurationText
     );
 
-    this.elements.results['fine-result'].innerText = result.message
+    this.elements.results['fine-result'].innerText = result.message;
+  }
+
+  calculateEnergy() {
+    const readingDate = new Date(this.elements.inputs['energy-date'].value);
+    const endDate = new Date(this.elements.inputs['key-delivery-date'].value);
+    const energyValue = formatters.toNumber(this.elements.inputs["energy-value"].value);
+
+    const result = contractCalculator.calculateEnergy(readingDate, endDate, energyValue);
+
+    this.elements.results['energy-result'].innerText = result.message;
+  }
+
+  calculateWater() {
+    const readingDate = new Date(this.elements.inputs['water-date'].value);
+    const endDate = new Date(this.elements.inputs['key-delivery-date'].value);
+    const waterValue = formatters.toNumber(this.elements.inputs["water-value"].value);
+
+    const result = contractCalculator.calculateWater(readingDate, endDate, waterValue);
+
+    this.elements.results['water-result'].innerText = result.message;
+  }
+
+  calculateCondominium() {
+    const condominiumValue = formatters.toNumber(this.elements.inputs['condominium'].value);
+    const condominiumPay = formatters.toNumber(this.elements.inputs["condominium-payment"].value);
+    const endDate = new Date(this.elements.inputs['key-delivery-date'].value);
+
+    const result = contractCalculator.calculateCondominium(condominiumValue, condominiumPay, endDate);
+
+    this.elements.results['condominium-result'].innerText = result.message;
+  }
+
+  calculateIPTU() {
+    const iptuValue = formatters.toNumber(this.elements.inputs['iptu'].value);
+    const iptuPay = formatters.toNumber(this.elements.inputs["iptu-payment"].value);
+    const startDate = new Date(this.elements.inputs['start-date'].value);
+    const endDate = new Date(this.elements.inputs['key-delivery-date'].value);
+
+    const result = contractCalculator.calculateIPTU(iptuValue, iptuPay, startDate, endDate);
+
+    this.elements.results['iptu-result'].innerText = result.message;
+  }
+
+  calculateSPU() {
+    const spuValue = formatters.toNumber(this.elements.inputs['spu'].value);
+    const spuPay = formatters.toNumber(this.elements.inputs["spu-payment"].value);
+    const startDate = new Date(this.elements.inputs['start-date'].value);
+    const endDate = new Date(this.elements.inputs['key-delivery-date'].value);
+
+    const result = contractCalculator.calculateSPU(spuValue, spuPay, startDate, endDate);
+
+    this.elements.results['spu-result'].innerText = result.message;
   }
 
   collectFormData() {
