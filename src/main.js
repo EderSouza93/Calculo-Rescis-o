@@ -3,6 +3,7 @@ import { masks } from "./utils/masks.js";
 import { contractCalculator } from "./features/contractCalculator.js";
 import { contractService } from "./services/api.js";
 import { formatters } from "./utils/formatters.js";
+import { notification } from "./utils/notifications.js";
 
 class ContractManager {
   constructor() {
@@ -96,9 +97,8 @@ class ContractManager {
     try {
       const formData = this.collectFormData();
       await contractService.saveContract(formData);
-      alert("Contrato salvo com sucesso!");
     } catch (error) {
-      alert("Erro ao salvar contrato");
+        notification("Erro ao salvar o contrato. Tente novamente mais tarde.", "#ef4444");
       console.error(error);
     }
   }
