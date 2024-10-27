@@ -359,4 +359,74 @@ export const contractCalculator = {
       };
     }
   },
+  calculateSPU(spuValue, spuPay, startDate, endDate) {
+    console.log("inicio da função");
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+
+    // Validações
+    if (
+      isNaN(startDateObj.getTime()) ||
+      isNaN(endDateObj.getTime()) ||
+      isNaN(spuValue) ||
+      spuValue <= 0 
+    ) {
+      return {
+        success: false,
+        message: "Insira dados válidos.",
+      };
+    }
+
+    const currentDate = dateUtils.firstDayYear();
+    let diffDaysSpu = (currentDate < startDate) 
+      ? dateUtils.daysBetween(startDate, endDate) + 1
+      : dateUtils.daysBetween(currentDate, endDate) + 1
+
+      console.log(`Passo pela condicional, diferença de dia é igual a ${diffDaysSpu}`)
+
+    // Calculo
+    const proporcionalSpu = (spuValue / 365) * diffDaysSpu;
+    const totalSpu = proporcionalSpu - spuPay;
+
+    // Evita NaN no resultado
+    if (isNaN(totalSpu)) {
+      return {
+        success: false,
+        message: "Insira dados válidos.",
+      };
+    }
+
+    const currentYear = new Date().getFullYear();
+
+    //Tratando problemas de ponto flutuante da primeira versão
+    const tolarance = 0.01;
+
+    if (isNaN(spuPay) || spuPay === 0) {
+      return {
+        success: true,
+        message: `O inquilino não efetuou nenhum pagamento referente ao ano de ${currentYear}, utilizou ${diffDaysSpu} dias e terá uma proporcionalide de ${formatters.toCurrency(Math.abs(totalSpu))} a pagar.`,
+      };
+    }
+
+    if (Math.abs(totalSpu) < tolarance) {
+      return {
+        success: true,
+        message: `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento exato de sua proporcionalidade.`,
+      };
+    }
+
+    if (totalSpu < 0) {
+      return {
+        success: true,
+        message: `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou pagamento, então ele terá ${formatters.toCurrency(Math.abs(totalSpu))} a ser ressarcido.`,
+      };
+    }
+
+    if (totalSpu > 0) {
+      return {
+        success: true,
+        message: `O inquilino utilizou ${diffDaysSpu} dias do SPU referente ao ano ${currentYear} e efetuou o pagamento, porém tem uma proporcionalidade de ${formatters.toCurrency(Math.abs(totalSpu))} a pagar.`,
+      };
+    }
+  },
 };
