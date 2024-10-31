@@ -290,7 +290,6 @@ export const contractCalculator = {
   },
 
   calculateIPTU(iptuValue, iptuPay, startDate, endDate) {
-    console.log("inicio da função");
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
 
@@ -311,8 +310,6 @@ export const contractCalculator = {
     let diffDaysIptu = (currentDate < startDate) 
       ? dateUtils.daysBetween(startDate, endDate) + 1
       : dateUtils.daysBetween(currentDate, endDate) + 1
-
-      console.log(`Passo pela condicional, diferença de dia é igual a ${diffDaysIptu}`)
 
     // Calculo
     const proporcionalIptu = (iptuValue / 365) * diffDaysIptu;
@@ -360,7 +357,6 @@ export const contractCalculator = {
     }
   },
   calculateSPU(spuValue, spuPay, startDate, endDate) {
-    console.log("inicio da função");
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
 
@@ -381,8 +377,6 @@ export const contractCalculator = {
     let diffDaysSpu = (currentDate < startDate) 
       ? dateUtils.daysBetween(startDate, endDate) + 1
       : dateUtils.daysBetween(currentDate, endDate) + 1
-
-      console.log(`Passo pela condicional, diferença de dia é igual a ${diffDaysSpu}`)
 
     // Calculo
     const proporcionalSpu = (spuValue / 365) * diffDaysSpu;

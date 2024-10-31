@@ -101,6 +101,30 @@ class ContractManager {
     this.elements.inputs["contract-duration"]?.addEventListener("change", () =>
       this.updateContractDurationView()
     );
+
+    this.elements.inputs["contract"]?.addEventListener("input", async (event) => {
+      const contractNumber = event.target.value.trim();
+      if (contractNumber) {
+        try{
+          const contractData = await contractService.fetchContractData(contractNumber);
+
+          if(contractData) {
+            Object.keys(contractData).forEach(key => {
+              if (this.elements.inputs[key]) {
+                this.elements.inputs[key].value = contractData[key] || '';
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Erro ao preencher os dados do contrato:", error);
+        }
+      } else {
+        // Limpa os campos se não for fornecido 
+        Object.keys(this.elements.inputs).forEach(key => {
+          this.elements.inputs[key].value = "";
+        })
+      }
+    })
   }
 
   calculateRent() {
