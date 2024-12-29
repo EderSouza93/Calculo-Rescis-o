@@ -22,6 +22,16 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 - JavaScript (ES6+)
 - Tailwind
 
+## Screeshots
+Formulário
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
 ## Instalação e Uso
 
 1. Clone este repositório: `git clone https://github.com/EderSouza93/Calculo-Rescis-o.git`
@@ -32,7 +42,7 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 
 Alteração da lógica, verificar se haverá necessidade de utilizar POO para esse caso. 
 
-O sponsor solicitou o salvamento dos dados para que prossiga com o levantamento em algum momento, isso traz a necessidade de um endpoint ligado a um banco de dados, e uma mascara no campo de mooeda e contrato, criar utilizando o regex, além do envio do email não pode ser automático, pois ele precisa revisar os pontos antes do envio. 
+O sponsor solicitou o salvamento dos dados para que prossiga com o levantamento em algum momento, isso traz a necessidade de um endpoint ligado a um banco de dados, e uma mascara no campo de moeda e contrato, criar utilizando o regex, além do envio do email não pode ser automático, pois ele precisa revisar os pontos antes do envio. 
 Será necessário adicionar alguns inputs como email e telefone para prosseguir com o envio de e-mail, o envio de arquivo é necessário para gerar um relatório pdf com as informações junto desses arquivos anexados. 
 
 ## Licença
