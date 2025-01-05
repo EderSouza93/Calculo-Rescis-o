@@ -17,10 +17,8 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 
 ## Tecnologias Utilizadas
 
-- HTML
-- CSS
-- JavaScript (ES6+)
-- Tailwind
+- **Frontend:** HTML, Tailwind CSS, JavaScript (ES6+)
+- **Planejamento da refatoração:** Migração para Next.js, utilizando API routes para persistência de dados e melhoria na performance, além de TypeScript para escalar o projeto para melhorias futuras. 
 
 ## Screeshots
 Formulário
@@ -32,18 +30,38 @@ Formulário
 
 ![alt text](image-3.png)
 
+> As imagens ilustram o funcionamento do sistema, desde a entrada de dados até o resultado dos cálculos e geração de relatórios.
+
 ## Instalação e Uso
 
 1. Clone este repositório: `git clone https://github.com/EderSouza93/Calculo-Rescis-o.git`
 2. Navegue até o diretório do projeto: `cd CALCULO-RESCI-O`
 3. Abra o arquivo `index.html` em um navegador web.
 
-## Proximas Atualizações 
+## Futuras Atualizações 
 
-Alteração da lógica, verificar se haverá necessidade de utilizar POO para esse caso. 
-
-O sponsor solicitou o salvamento dos dados para que prossiga com o levantamento em algum momento, isso traz a necessidade de um endpoint ligado a um banco de dados, e uma mascara no campo de moeda e contrato, criar utilizando o regex, além do envio do email não pode ser automático, pois ele precisa revisar os pontos antes do envio. 
-Será necessário adicionar alguns inputs como email e telefone para prosseguir com o envio de e-mail, o envio de arquivo é necessário para gerar um relatório pdf com as informações junto desses arquivos anexados. 
+ ### Refatoração com Next.js
+  - Migração para Next.js para melhorar a performance, SEO e estrutura modular do projeto.
+  - Utilização de API routes para salvar e recuperar dados.
+ ### Persistência de Dados
+  - Criar um endpoint para salvar os dados no banco de dados, permitindo que os usuários   
+    retomem o levantamento em qualquer momento.
+ ### Máscaras para Campos
+  - Adicionar máscaras nos campos de moeda e contrato, utilizando regex para validação.
+ ### Envio de E-mails
+  - Implementar o envio de e-mails com opção de revisão prévia, garantindo que o sponsor possa 
+    validar as informações antes do envio.
+ ### Novos Campos
+  - Adicionar campos para:
+    - E-mail: Para facilitar o envio de mensagens.
+    - Telefone: Para comunicação direta.
+ ### Relatórios e Arquivos Anexos
+  - Permitir o upload de arquivos.
+  - Gerar relatórios em PDF contendo as informações do cálculo e os arquivos anexados.
+    Tecnologias sugeridas: jspdf, pdf-lib ou similares.
+ ### Avaliação de POO
+  - Revisar a lógica atual para avaliar a necessidade de implementar Programação Orientada a 
+    Objetos (POO), visando modularidade e facilidade de manutenção.
 
 ## Licença
 
