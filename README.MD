@@ -17,9 +17,20 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 
 ## Tecnologias Utilizadas
 
-- HTML
-- CSS
-- JavaScript (ES6+)
+- **Frontend:** HTML, Tailwind CSS, JavaScript (ES6+)
+- **Planejamento da refatoração:** Migração para Next.js, utilizando API routes para persistência de dados e melhoria na performance, além de TypeScript para escalar o projeto para melhorias futuras. 
+
+## Screeshots
+Formulário
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
+> As imagens ilustram o funcionamento do sistema, desde a entrada de dados até o resultado dos cálculos e geração de relatórios.
 
 ## Instalação e Uso
 
@@ -27,9 +38,30 @@ O objetivo principal do projeto é fornecer uma ferramenta útil para proprietá
 2. Navegue até o diretório do projeto: `cd CALCULO-RESCI-O`
 3. Abra o arquivo `index.html` em um navegador web.
 
-## Contribuição
+## Futuras Atualizações 
 
-Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões de melhorias, sinta-se à vontade para abrir uma nova issue ou enviar um pull request.
+ ### Refatoração com Next.js
+  - Migração para Next.js para melhorar a performance, SEO e estrutura modular do projeto.
+  - Utilização de API routes para salvar e recuperar dados.
+ ### Persistência de Dados
+  - Criar um endpoint para salvar os dados no banco de dados, permitindo que os usuários   
+    retomem o levantamento em qualquer momento.
+ ### Máscaras para Campos
+  - Adicionar máscaras nos campos de moeda e contrato, utilizando regex para validação.
+ ### Envio de E-mails
+  - Implementar o envio de e-mails com opção de revisão prévia, garantindo que o sponsor possa 
+    validar as informações antes do envio.
+ ### Novos Campos
+  - Adicionar campos para:
+    - E-mail: Para facilitar o envio de mensagens.
+    - Telefone: Para comunicação direta.
+ ### Relatórios e Arquivos Anexos
+  - Permitir o upload de arquivos.
+  - Gerar relatórios em PDF contendo as informações do cálculo e os arquivos anexados.
+    Tecnologias sugeridas: jspdf, pdf-lib ou similares.
+ ### Avaliação de POO
+  - Revisar a lógica atual para avaliar a necessidade de implementar Programação Orientada a 
+    Objetos (POO), visando modularidade e facilidade de manutenção.
 
 ## Licença
 
