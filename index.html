@@ -3,8 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Formulário Levantamento de Contas</title>
+    <link rel="shortcut icon" href="./img/faviconWhite.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./styles/output.css" />
   </head>
   <body class="bg-gray-100">
     <!-- Header -->
@@ -30,6 +44,7 @@
               id="contract"
               type="text"
               placeholder="2719-0-10"
+              maxlength="10"
             />
           </div>
           <div>
@@ -59,7 +74,35 @@
             />
           </div>
           <div>
-            <label class="block text-gray-700">Fiança</label>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="tenant-email"
+              >E-mail do Inquilino</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="tenant-email"
+              type="email"
+              placeholder="fulanodetal@email.com"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="tenant-phone"
+              >Telefone do Inquilino</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="tenant-phone"
+              type="text"
+              placeholder="(+55 79) 999854-3128"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2"
+              >Fiança</label
+            >
             <select class="form-select mt-1 block w-full" id="guarantor">
               <option value="CredPago">CredPago/Loft</option>
               <option value="Fiador">Fiador</option>
@@ -88,6 +131,60 @@
               type="text"
               placeholder="Lenora Edelweis D'avila Fontes de Alencar"
             />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="owner-email"
+              >E-mail do Poprietário</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="owner-email"
+              type="email"
+              placeholder="fulanodetal@email.com"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="owner-phone"
+              >Telefone do Proprietário</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="owner-phone"
+              type="text"
+              placeholder="(+55 79) 999854-3128"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="start-date"
+              >Data de inicio de Contrato</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="start-date"
+              type="date"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2"
+              >Vigência do Contrato</label
+            >
+            <select
+              class="form-select mt-1 block w-full"
+              id="contract-duration"
+            >
+              <option selected value="Selecione a vigência">Selecione a Vigência</option>
+              <option value="365">1 ano</option>
+              <option value="730">2 anos</option>
+              <option value="1095">3 anos</option>
+              <option value="1460">4 anos</option>
+              <option value="1825">5 anos</option>
+            </select>
           </div>
         </div>
       </div>
@@ -211,7 +308,9 @@
             />
           </div>
           <div>
-            <label class="block text-gray-700">Vistoria Final</label>
+            <label class="block text-gray-700 text-sm font-bold mb-2"
+              >Vistoria Final</label
+            >
             <select class="form-select mt-1 block w-full" id="inspection">
               <option selected value="Em andamento">Em andamento</option>
               <option value="Aprovada">Aprovada</option>
@@ -219,7 +318,9 @@
             </select>
           </div>
           <div>
-            <label class="block text-gray-700">Abono de dias</label>
+            <label class="block text-gray-700 text-sm font-bold mb-2"
+              >Abono de dias</label
+            >
             <select class="form-select mt-1 block w-full" id="allowance">
               <option selected value="0">Não</option>
               <option value="1">Um dia</option>
@@ -260,10 +361,7 @@
         <div class="bg-white shadow-lg p-6 rounded-lg">
           <h3 class="text-lg font-bold">Multa Rescisória</h3>
           <label class="block mt-4">Vigência do Contrato</label>
-          <select class="form-select mt-1 block w-full" id="fine-duration">
-            <option value="365">1 ano</option>
-            <option value="730">2 anos</option>
-          </select>
+          <p id="contract-duration-view" class="mt-2">Tempo de Contrato</p>
           <div class="bg-blue-100 p-4 mt-12 rounded-lg">
             <p class="font-bold">Resultado</p>
             <p id="fine-result" class="mt-2">Resultado aqui</p>
@@ -473,6 +571,12 @@
         >
           Gerar Email Proprietário
         </button>
+        <button
+          id="save-button"
+          class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Salvar
+        </button>
       </div>
     </main>
 
@@ -503,6 +607,7 @@
           alert("Funcionalidade de geração de email será implementada aqui.");
         });
     </script>
-    <script type="module" src="./src/js/script.js"></script>
+    <script type="module" src="./src/main.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   </body>
 </html>
