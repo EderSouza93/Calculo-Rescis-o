@@ -43,6 +43,7 @@ Formulário
  ### Refatoração com Next.js
   - Migração para Next.js para melhorar a performance, SEO e estrutura modular do projeto.
   - Utilização de API routes para salvar e recuperar dados.
+  - Utilização de TypeScript para adição de tipagem estática.
  ### Persistência de Dados
   - Criar um endpoint para salvar os dados no banco de dados, permitindo que os usuários   
     retomem o levantamento em qualquer momento.
